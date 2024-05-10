@@ -1,0 +1,6 @@
+Mysql
+Brezee
+Blade
+Bootstrap
+AdminLTE
+Sweetalert2
