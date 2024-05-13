@@ -55,6 +55,25 @@ class RegisterController extends Controller
         ]);
     }
 
+    /** Super illegal Spanish ID generator
+     * 
+     * First selects random numbers, after that a random letter,
+     * puts all of it together and checks if that id already exists.
+     *  
+     */
+
+    function generateID()
+    {
+        do {
+            $dni_number = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $letters = 'TRWAGMYFPDXBNJZSQVHLCKE';
+            $dni_letter = $letters[(int) $dni_number % 23];
+            $dni_complete = $dni_number . $dni_letter;
+            $existing_user = User::where('dni', $dni_complete)->first();
+        } while ($existing_user);
+        return $dni_complete;
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -64,9 +83,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'dni' => $this->generateID(),
             'name' => $data['name'],
+            'surname' => '',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'id_empresa' => 1,
         ]);
     }
 }

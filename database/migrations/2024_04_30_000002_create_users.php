@@ -10,10 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->string('dni')->primary();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('dni')->unique();
             $table->string('name');
-            $table->string('surname');
+            $table->string('surname')->default('')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -39,7 +40,7 @@ return new class extends Migration {
             $table->integer('last_activity')->index();
         });
 
-        DB::table('user')->insert([
+        DB::table('users')->insert([
             [
                 'dni' => '00000001A',
                 'name' => 'Deborah',

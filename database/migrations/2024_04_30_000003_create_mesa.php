@@ -12,19 +12,19 @@ return new class extends Migration {
     {
         Schema::create('mesa', function (Blueprint $table) {
             $table->id();
-            $table->string('dni_camarero');
+            $table->unsignedBigInteger('cod_camarero');
             $table->smallInteger('cant_clientes');
-            $table->foreign('dni_camarero')->references('dni')->on('user');
+            $table->foreign('cod_camarero')->references('id')->on('users');
             $table->timestamps();
         });
 
         DB::table('mesa')->insert([
             [
-                'dni_camarero' => '00000003C',
+                'cod_camarero' => '1',
                 'cant_clientes' => '1'
             ],
             [
-                'dni_camarero' => '00000004D',
+                'cod_camarero' => '1',
                 'cant_clientes' => '2',
             ]
         ]);

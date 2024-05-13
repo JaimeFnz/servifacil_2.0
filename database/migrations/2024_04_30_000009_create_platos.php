@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('platos', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
             $table->foreign('id')->references('id')->on('productos');
-            $table->string('dni');
-            $table->foreign('dni')->references('dni')->on('user');
+            $table->unsignedBigInteger('cod_camarero');
+            $table->foreign('cod_camarero')->references('id')->on('users');
             $table->smallInteger('tiempo');
             $table->timestamps();
         });
@@ -22,12 +22,12 @@ return new class extends Migration {
         DB::table('platos')->insert([
             [
                 'id' => '1',
-                'dni' => '00000001A',
+                'cod_camarero' => '1',
                 'tiempo' => '5',
             ],
             [
                 'id' => '2',
-                'dni' => '00000002B',
+                'cod_camarero' => '2',
                 'tiempo' => '10',
             ]
         ]);

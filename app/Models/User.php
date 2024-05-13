@@ -17,10 +17,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'dni',
         'name',
         'surname',
         'email',
         'password',
+        'id_empresa',
+        ''
     ];
 
     /**
@@ -69,18 +72,19 @@ class User extends Authenticatable
      * Rol checking
      * 
      */
-     public function isAdmin()
+    public function isAdmin()
     {
-        // Si el puesto del usuario es 'jefe', considerarlo como administrador
         return $this->puesto === 'jefe';
     }
 
     public function isEditor()
     {
-        // Puedes definir la lógica para otros roles según tus necesidades
-        // Por ejemplo, si el puesto del usuario es 'camarero', considerarlo como editor
         return $this->puesto === 'camarero';
     }
 
-    
+    public function isCocinero()
+    {
+        return $this->puesto === 'cocinero';
+    }
+
 }
