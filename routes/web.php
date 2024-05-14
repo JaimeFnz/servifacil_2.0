@@ -8,6 +8,9 @@ Route::get('/', function () {
 });
 
 
+Route::get('/dishes/{section?}', 'DishController@index')->name('dishes.index');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

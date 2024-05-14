@@ -42,12 +42,22 @@ return new class extends Migration {
 
         DB::table('users')->insert([
             [
+                'dni' => '00000000A',
+                'name' => 'Jaime',
+                'surname' => '',
+                'email' => 'jaime@gmail.com',
+                'password' => 'jaime1234',
+                'id_empresa' => 1,
+                'puesto' => 'jefe'
+
+            ],
+            [
                 'dni' => '00000001A',
                 'name' => 'Deborah',
                 'surname' => 'Nabos',
                 'email' => 'deborah@gmail.com',
                 'password' => 'deborah1234',
-                'id_empresa' => 1,
+                'id_empresa' => 3,
                 'puesto' => 'jefe',
             ],
             [
@@ -65,7 +75,7 @@ return new class extends Migration {
                 'surname' => 'Este Banquito',
                 'email' => 'armando@gmail.com',
                 'password' => 'armando1234',
-                'id_empresa' => 1,
+                'id_empresa' => 3,
                 'puesto' => 'camarero',
             ],
             [

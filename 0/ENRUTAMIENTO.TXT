@@ -1,0 +1,66 @@
+1. Definir rutas dinámicas:
+Define rutas dinámicas en tu archivo de rutas (por ejemplo, web.php) para manejar diferentes secciones del submenú. Por ejemplo:
+
+Route::get('/dishes/{section?}', 'DishController@index')->name('dishes.index');
+2. Crear un controlador:
+Crea un controlador llamado DishController para manejar las diferentes secciones del submenú y recuperar los platos correspondientes desde la base de datos.
+
+php artisan make:controller DishController
+3. Filtrar platos según la sección del submenú:
+En el método index() del controlador, filtra los platos de la base de datos según la sección del submenú seleccionada.
+
+use App\Models\Dish;
+
+class DishController extends Controller
+{
+    public function index($section = null)
+    {
+        if ($section) {
+            // Filtrar platos por sección del submenú
+            $dishes = Dish::where('section', $section)->get();
+        } else {
+            // Obtener todos los platos
+            $dishes = Dish::all();
+        }
+
+        return view('dishes.index', compact('dishes'));
+    }
+}
+4. Mostrar los platos en la vista:
+En la vista dishes.index, recorre los platos obtenidos del controlador y muéstralos según sea necesario.
+
+@extends('adminlte::page')
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Platos</h2>
+                        <ul>
+                            @foreach ($dishes as $dish)
+                                <li>{{ $dish->name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
+5. Modificar el submenú:
+Asegúrate de que los enlaces del submenú apunten a las rutas adecuadas para cada sección, por ejemplo:
+
+'submenu' => [
+    [
+        'text' => 'Entrantes',
+        'url' => route('dishes.index', ['section' => 'entrantes'])
+    ],
+    [
+        'text' => 'Primer plato',
+        'url' => route('dishes.index', ['section' => 'primer-plato'])
+    ],
+    // Otros elementos del submenú...
+]
+Con este enfoque, cuando el usuario seleccione una sección del submenú, la vista dishes.index mostrará los platos correspondientes a esa sección, utilizando la lógica del controlador para filtrar los datos de la base de datos.

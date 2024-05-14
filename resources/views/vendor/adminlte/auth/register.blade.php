@@ -17,24 +17,25 @@
     <form action="{{ $register_url }}" method="post">
         @csrf
 
-        {{-- Name field --}}
+        {{-- Id field --}}
         <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+            <input type="text" name="dni" class="form-control @error('dni') is-invalid @enderror"
+                value="{{ old('dni') }}" placeholder="Id number" autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    <span class="fas fa-id-badge {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    {{-- <i class="fa-solid fa-id-badge"></i> --}}
                 </div>
             </div>
-
-            @error('name')
+            @error('dni')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
+        {{-- Name field --}}
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                 value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
@@ -114,6 +115,7 @@
         </button>
 
     </form>
+
 @stop
 
 @section('auth_footer')

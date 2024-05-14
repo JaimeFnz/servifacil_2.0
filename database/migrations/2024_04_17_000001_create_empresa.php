@@ -17,6 +17,9 @@ return new class extends Migration {
 
         DB::table('empresa')->insert([
             [
+                'name' => 'default'
+            ],
+            [
                 'name' => 'empresa01'
             ],
             [

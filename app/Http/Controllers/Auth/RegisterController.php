@@ -50,18 +50,28 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'dni' => [
+                'required',
+                'string',
+                'max:9',
+                function ($attribute, $value, $fail) {
+                    if (!$this->validateDni($value)) {
+                        $fail("El DNI $value no es válido.");
+                    }
+                }   
+            ],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
-    /** Super illegal Spanish ID generator
+    /** 
+     * Super illegal Spanish ID generator
      * 
      * First selects random numbers, after that a random letter,
      * puts all of it together and checks if that id already exists.
      *  
      */
-
     function generateID()
     {
         do {
@@ -72,6 +82,16 @@ class RegisterController extends Controller
             $existing_user = User::where('dni', $dni_complete)->first();
         } while ($existing_user);
         return $dni_complete;
+    }
+
+    /**
+     * Super legal function to validate an id number
+     * 
+     * 
+     */
+    function validateDni($dni)
+    {
+        return preg_match('/^[0-9]{8}[A-Za-z]$/', $dni);
     }
 
     /**
