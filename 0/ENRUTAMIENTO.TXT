@@ -64,3 +64,5 @@ Asegúrate de que los enlaces del submenú apunten a las rutas adecuadas para ca
     // Otros elementos del submenú...
 ]
 Con este enfoque, cuando el usuario seleccione una sección del submenú, la vista dishes.index mostrará los platos correspondientes a esa sección, utilizando la lógica del controlador para filtrar los datos de la base de datos.
+
+$table->enum('tipo', ['primero', 'segundo', 'postre', 'entrante', 'picapica', 'bebida']);

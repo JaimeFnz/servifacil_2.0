@@ -309,7 +309,6 @@ return [
         ['header' => 'MAIN'],
         [
             'text' => 'test01',
-            'url' => '#',
             'topnav' => 'true' //Para que se añada al navbar
         ],
         [
@@ -319,36 +318,46 @@ return [
         ],
         [
             'text' => ' Dishes',
-            'icon' => 'fas fa-solid fa-utensils',
+            'icon' => 'fas fa-solid fa-layer-group',
             'label' => 'News!',
             'label_color' => 'success',
-
+            
             'submenu' => [
                 [
-                    'text' => 'Starters',
-                    'url' => '#'
+                    'text' => 'First plate',
+                    'icon' => 'fas fa-solid fa-utensils',
+                    // 'url' => route('dishes.index', ['section' => 'primero']),
+                    'url' => '#',
                 ],
                 [
                     'text' => 'Second plate',
-                    'url' => '#'
+                    'icon' => 'fas fa-solid fa-utensils',
+                    // 'url' => route('dishes.index', ['section' => 'segundo']),
+                    'url' => '#',
                 ],
                 [
                     'text' => 'Dessert',
-                    'url' => '#'
+                    'icon' => 'fas fa-solid fa-ice-cream',
+                    // 'url' => route('dishes.index', ['section' => 'postre']),
+                    'url' => '#',
                 ],
                 [
                     'text' => 'Drink',
-                    'icon' => 'fas fa-coffee',
-                    'url' => '#'
+                    'icon' => 'fas fa-solid fa-wine-glass',
+                    // 'url' => route('dishes.index', ['section' => 'bebida']),
+                    'url' => '#',
                 ],
                 [
                     'text' => 'Others',
-                    'url' => '#'
+                    // 'url' => route('dishes.index', ['section' => 'picapica']),
+                    'url' => '#',
                 ],
                 [
                     'text' => 'All',
-                    'url' => ''
-                ]
+                    'icon_color' => 'red',
+                    // 'url' => route('dishes.index', ['section' => 'all']),
+                    'url' => '#',
+                    ]
             ]
         ],
         ['header' => 'account_settings'],

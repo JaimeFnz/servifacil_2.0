@@ -8,7 +8,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dishes/{section?}', 'DishController@index')->name('dishes.index');
+Route::get('/dishes/{section?}', [\App\Http\Controllers\DishController::class, 'index'])->name('dishes.index');
+
 
 
 Route::get('/dashboard', function () {

@@ -10,17 +10,18 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('producto', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->double('precio');
+            $table->string('imagen')->default('public\img\stock.png');
             $table->enum('tipo', ['primero', 'segundo', 'postre', 'entrante', 'picapica', 'bebida']);
             $table->unsignedBigInteger('alergias');
             $table->foreign('alergias')->references('id')->on('alergeno');
             $table->timestamps();
         });
 
-        DB::table('productos')->insert([
+        DB::table('producto')->insert([
             [
                 'nombre' => 'macarrones',
                 'precio' => '7.99',

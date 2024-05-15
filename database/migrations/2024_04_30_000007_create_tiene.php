@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('tiene', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_producto');
-            $table->foreign('id_producto')->references('id')->on('productos');
+            $table->foreign('id_producto')->references('id')->on('producto');
             $table->unsignedBigInteger('id_alergeno');
             $table->foreign('id_alergeno')->references('id')->on('alergeno');
             $table->timestamps();

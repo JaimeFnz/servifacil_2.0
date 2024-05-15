@@ -16,9 +16,9 @@ class DishController extends Controller
         if ($section) {
             // Filtrar platos por sección del submenú
             $dishes = Dish::where('section', $section)->get();
-        } else {
+        } if ($section == "all") {
             // Obtener todos los platos
-            $dishes = Dish::all();
+            $dishes = Dish::all()->sortBy('tipo');
         }
         
         return view('dishes.index', compact('dishes'));

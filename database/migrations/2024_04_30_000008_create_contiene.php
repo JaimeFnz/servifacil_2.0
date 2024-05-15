@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('producto', function (Blueprint $table) {
+        Schema::create('contiene', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_comanda');
             $table->foreign('id_comanda')->references('id')->on('comanda');
@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        DB::table('producto')->insert([
+        DB::table('contiene')->insert([
             [
                 'id_comanda' => '1',
                 'id_producto' => '1',

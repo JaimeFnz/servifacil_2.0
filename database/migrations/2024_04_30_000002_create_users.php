@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -39,14 +40,14 @@ return new class extends Migration {
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
+        
         DB::table('users')->insert([
             [
                 'dni' => '00000000A',
                 'name' => 'Jaime',
                 'surname' => '',
                 'email' => 'jaime@gmail.com',
-                'password' => 'jaime1234',
+                'password' => bcrypt('jaime1234'),
                 'id_empresa' => 1,
                 'puesto' => 'jefe'
 

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('platos', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->foreign('id')->references('id')->on('productos');
+            $table->foreign('id')->references('id')->on('producto');
             $table->unsignedBigInteger('cod_camarero');
             $table->foreign('cod_camarero')->references('id')->on('users');
             $table->smallInteger('tiempo');
