@@ -10,35 +10,77 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('producto', function (Blueprint $table) {
+        Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->double('precio');
-            $table->string('imagen')->default('public\img\stock.png');
+            $table->string('imagen')->default('stock.png');
             $table->enum('tipo', ['primero', 'segundo', 'postre', 'entrante', 'picapica', 'bebida']);
-            $table->unsignedBigInteger('alergias');
-            $table->foreign('alergias')->references('id')->on('alergeno');
             $table->timestamps();
         });
 
-        DB::table('producto')->insert([
+        DB::table('productos')->insert([
+            // Primeros
             [
-                'nombre' => 'macarrones',
-                'precio' => '7.99',
+                'nombre' => 'Ensalada César',
+                'precio' => 8.99,
                 'tipo' => 'primero',
-                'alergias' => '1',
             ],
             [
-                'nombre' => 'spaguetti',
-                'precio' => '5.99',
+                'nombre' => 'Gazpacho Andaluz',
+                'precio' => 6.49,
                 'tipo' => 'primero',
-                'alergias' => '1',
-            ]
+            ],
+            // Segundos
+            [
+                'nombre' => 'Solomillo de Ternera',
+                'precio' => 15.99,
+                'tipo' => 'segundo',
+            ],
+            [
+                'nombre' => 'Pescado a la Plancha',
+                'precio' => 12.49,
+                'tipo' => 'segundo',
+            ],
+            // Postres
+            [
+                'nombre' => 'Tarta de Chocolate',
+                'precio' => 6.99,
+                'tipo' => 'postre',
+            ],
+            [
+                'nombre' => 'Helado de Vainilla',
+                'precio' => 4.49,
+                'tipo' => 'postre',
+            ],
+            // Entrantes
+            [
+                'nombre' => 'Croquetas de Jamón',
+                'precio' => 7.49,
+                'tipo' => 'entrante',
+            ],
+            [
+                'nombre' => 'Calamares a la Romana',
+                'precio' => 8.99,
+                'tipo' => 'entrante',
+            ],
+            // Picapica
+            [
+                'nombre' => 'Tablas de Queso',
+                'precio' => 10.99,
+                'tipo' => 'picapica',
+            ],
+            [
+                'nombre' => 'Tabla de Embutidos',
+                'precio' => 11.49,
+                'tipo' => 'picapica',
+            ],
         ]);
+        
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('producto');
+        Schema::dropIfExists('productos');
     }
 };

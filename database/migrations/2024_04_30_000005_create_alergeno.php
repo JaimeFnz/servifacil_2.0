@@ -10,13 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('alergeno', function (Blueprint $table) {
+        Schema::create('alergenos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
         });
 
-        DB::table('alergeno')->insert([
+        DB::table('alergenos')->insert([
             [
                 'nombre' => 'celiaquia',
             ],
@@ -37,6 +37,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('alergeno');
+        Schema::dropIfExists('alergenos');
     }
 };

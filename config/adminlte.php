@@ -321,43 +321,37 @@ return [
             'icon' => 'fas fa-solid fa-layer-group',
             'label' => 'News!',
             'label_color' => 'success',
-            
+
             'submenu' => [
                 [
                     'text' => 'First plate',
                     'icon' => 'fas fa-solid fa-utensils',
-                    // 'url' => route('dishes.index', ['section' => 'primero']),
-                    'url' => '#',
+                    'route' => ['dishes.index', ['section' => 'primero']],
                 ],
                 [
                     'text' => 'Second plate',
                     'icon' => 'fas fa-solid fa-utensils',
-                    // 'url' => route('dishes.index', ['section' => 'segundo']),
-                    'url' => '#',
+                    'route' => ['dishes.index', ['section' => 'segundo']],
                 ],
                 [
                     'text' => 'Dessert',
                     'icon' => 'fas fa-solid fa-ice-cream',
-                    // 'url' => route('dishes.index', ['section' => 'postre']),
-                    'url' => '#',
+                    'route' => ['dishes.index', ['section' => 'postre']],
                 ],
                 [
                     'text' => 'Drink',
                     'icon' => 'fas fa-solid fa-wine-glass',
-                    // 'url' => route('dishes.index', ['section' => 'bebida']),
-                    'url' => '#',
+                    'route' => ['dishes.index', ['section' => 'bebida']],
                 ],
                 [
                     'text' => 'Others',
-                    // 'url' => route('dishes.index', ['section' => 'picapica']),
-                    'url' => '#',
+                    'route' => ['dishes.index', ['section' => 'picapica']],
                 ],
                 [
                     'text' => 'All',
                     'icon_color' => 'red',
-                    // 'url' => route('dishes.index', ['section' => 'all']),
-                    'url' => '#',
-                    ]
+                    'route' => ['dishes.index', ['section' => 'all']],
+                ]
             ]
         ],
         ['header' => 'account_settings'],

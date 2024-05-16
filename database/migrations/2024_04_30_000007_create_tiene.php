@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('tiene', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_producto');
-            $table->foreign('id_producto')->references('id')->on('producto');
+            $table->foreign('id_producto')->references('id')->on('productos');
             $table->unsignedBigInteger('id_alergeno');
-            $table->foreign('id_alergeno')->references('id')->on('alergeno');
+            $table->foreign('id_alergeno')->references('id')->on('alergenos');
             $table->timestamps();
         });
 
@@ -26,6 +26,38 @@ return new class extends Migration {
             ],
             [
                 'id_producto' => '2',
+                'id_alergeno' => '2',
+            ],
+            [
+                'id_producto' => '3',
+                'id_alergeno' => '3',
+            ],
+            [
+                'id_producto' => '4',
+                'id_alergeno' => '4',
+            ],
+            [
+                'id_producto' => '5',
+                'id_alergeno' => '1',
+            ],
+            [
+                'id_producto' => '6',
+                'id_alergeno' => '2',
+            ],
+            [
+                'id_producto' => '7',
+                'id_alergeno' => '3',
+            ],
+            [
+                'id_producto' => '8',
+                'id_alergeno' => '4',
+            ],
+            [
+                'id_producto' => '9',
+                'id_alergeno' => '1',
+            ],
+            [
+                'id_producto' => '10',
                 'id_alergeno' => '2',
             ]
         ]);

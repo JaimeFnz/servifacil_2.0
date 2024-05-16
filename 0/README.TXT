@@ -12,3 +12,10 @@ C:\laragon\www\servifacil_2.0\config\adminlte.php line ~317
 * Esto sirve para poder añadir como notificaciones, muestra el numerito 4 
 * dentro de una cajita verdeñ
 */
+
+/**
+* QUE HACERES, CREAR LA VISTA PARA UN PRODUCTO, CREAR LA VISTA DE GESTION DE USUARIO, 
+* CREAR LA VISTA DE COCINERO,Y HABILITARLO CON LOS ROLES,CREAR VISTA DE ADMIN, PARA VER TODOS LOS USUARIOS
+* AÑADIR LA CREACIÓN DE EMPRESAS, Y VISTA DE CREACIÓN DE COMANDAS.
+*
+*/
