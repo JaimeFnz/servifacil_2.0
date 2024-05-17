@@ -354,12 +354,23 @@ return [
                 ]
             ]
         ],
+        [
+            'text' => ' Note',
+            'icon' => 'fas fa-solid fa-clipboard',
+            'url' => '#',
+        ],
+        [
+            'text' => ' Cook',
+            'icon' => 'fas fa-solid fa-fire-burner',
+            'url' => '#',
+        ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
+            'text' => 'Profile',
+            'route' => 'profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
+        
     ],
 
     /*

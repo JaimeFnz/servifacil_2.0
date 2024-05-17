@@ -13,24 +13,6 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index($section)
-    // {
-    //     // Comprobar si $section tiene algún valor
-    //     if ($section) {
-    //         if ($section == "all") {
-    //             // Obtener todos los platos
-    //             $dishes = Producto::all()->sortBy('tipo');
-    //         } else {
-    //             // Filtrar platos por sección del submenú
-    //             $dishes = Producto::where('tipo', $section)->get();
-    //         }
-    //     } else {
-    //         // Si $section no tiene valor, obtener todos los platos por defecto
-    //         $dishes = Producto::all()->sortBy('tipo');
-    //     }
-    //     return view('dishes', compact('dishes'));
-    // }
-
     public function index($section)
     {
         // Comprobar si $section tiene algún valor

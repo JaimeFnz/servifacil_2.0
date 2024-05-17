@@ -6,7 +6,7 @@
             {{-- @dd($dishes); --}}
             @if (count($dishes) > 0)
                 @foreach ($dishes as $dish)
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mt-4" >
                         <div class="card">
                             <img src="{{ asset('img/' . $dish->imagen) }}" class="card-img-top" alt="{{ $dish->imagen }}">
                             <div class="card-body">
