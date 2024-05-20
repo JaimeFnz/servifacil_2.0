@@ -72,19 +72,19 @@ class User extends Authenticatable
      * Rol checking
      * 
      */
-    public function isAdmin()
-    {
-        return $this->puesto === 'jefe';
-    }
+    // public function isAdmin()
+    // {
+    //     return $this->puesto === 'jefe';
+    // }
 
-    public function isEditor()
-    {
-        return $this->puesto === 'camarero';
-    }
+    // public function isEditor()
+    // {
+    //     return $this->puesto === 'camarero';
+    // }
 
-    public function isCocinero()
-    {
-        return $this->puesto === 'cocinero';
-    }
+    // public function isCocinero()
+    // {
+    //     return $this->puesto === 'cocinero';
+    // }
 
 }

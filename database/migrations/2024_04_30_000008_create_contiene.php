@@ -25,9 +25,33 @@ return new class extends Migration {
                 'id_producto' => '1',
             ],
             [
+                'id_comanda' => '1',
+                'id_producto' => '3',
+            ],
+            [
+                'id_comanda' => '1',
+                'id_producto' => '5',
+            ],
+            [
+                'id_comanda' => '1',
+                'id_producto' => '7',
+            ],
+            [
                 'id_comanda' => '2',
                 'id_producto' => '2',
-            ]
+            ],
+            [
+                'id_comanda' => '2',
+                'id_producto' => '4',
+            ],
+            [
+                'id_comanda' => '2',
+                'id_producto' => '6',
+            ],
+            [
+                'id_comanda' => '2',
+                'id_producto' => '8',
+            ],
         ]);
     }
 

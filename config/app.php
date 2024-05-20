@@ -123,4 +123,15 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Service Provider
+    |--------------------------------------------------------------------------
+    |
+    | These provider will authorize using the gates for rol validation
+    |
+     */
+
+    // 'providers' => [App\Providers\AuthServiceProvider::class],
 ];

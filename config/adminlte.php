@@ -362,7 +362,7 @@ return [
         [
             'text' => ' Cook',
             'icon' => 'fas fa-solid fa-fire-burner',
-            'url' => '#',
+            'url' => 'cook',
         ],
         ['header' => 'account_settings'],
         [

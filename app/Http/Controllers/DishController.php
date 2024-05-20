@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alergeno;
+use App\Models\Plato;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 class DishController extends Controller
 {
@@ -32,18 +32,11 @@ class DishController extends Controller
         // Recoger información sobre alérgenos para cada plato
         foreach ($dishes as $dish) {
             // Obtener los alérgenos asociados al plato
-            $alergenos = $dish->alergenos()->pluck('nombre')->toArray();
-
-            // Asignar los alérgenos al plato
-            $dish->alergenos = $alergenos;
+            $dish->alergenos = $this->getAlergenos($dish);
         }
 
         return view('dishes', compact('dishes'));
     }
-
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -66,8 +59,14 @@ class DishController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $main = Plato::where('id', $id)->pluck('tiempo')->first();
+        $dish = Producto::where('id', $id)->get()->first();
+        $dish->main = $main;
+
+        // return dd($dish);
+        return view('dish', compact('dish'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -91,5 +90,14 @@ class DishController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // Función privada para obtener los alérgenos de un plato
+    private function getAlergenos($dish)
+    {
+        // Obtener los alérgenos asociados al plato
+        $alergenos = $dish->alergenos()->pluck('nombre')->toArray();
+
+        return $alergenos;
     }
 }
