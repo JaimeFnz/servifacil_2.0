@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mesa;
 use Illuminate\Http\Request;
 
-class CookController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class CookController extends Controller
         $mesas = Mesa::with(['comandas.productos.alergenos', 'camarero'])->get();
 
         // Pasar los datos a la vista
-        return view('cook', compact('mesas'));
+        return view('note', compact('mesas'));
     }
 
     /**

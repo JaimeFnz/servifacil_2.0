@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Servifacil | Cook')
+@section('title', 'Servifacil | Note')
 
 @section('content')
     <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 75vh;">

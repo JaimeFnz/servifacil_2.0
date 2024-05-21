@@ -1,4 +1,5 @@
 <?php
+use App\Models\User;
 
 return [
 
@@ -132,7 +133,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
+    
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-info',
@@ -357,12 +358,38 @@ return [
         [
             'text' => ' Note',
             'icon' => 'fas fa-solid fa-clipboard',
-            'url' => '#',
+            'url' => 'notes',
         ],
+        ['header' => 'MANAGER'],
         [
-            'text' => ' Cook',
-            'icon' => 'fas fa-solid fa-fire-burner',
-            'url' => 'cook',
+            'text' => ' Manage Panels',
+            'icon' => 'fas fa-solid fa-bars',
+
+            'submenu' => [
+                [
+                    'text' => 'Note management',
+                    'icon' => 'fas fa-solid fa-notes-medical',
+                    'url' => 'note-mgmt',
+                ],
+                [
+                    'text' => 'Desk management',
+                    'icon' => 'fas fa-solid fa-notes-medical',
+                    'url' => 'desk-mgmt',
+                    'can' => '',
+                ],
+                [
+                    'text' => 'Company management',
+                    'icon' => 'fas fa-solid fa-building',
+                    'url' => 'company-mgmt',
+                    // 'can' => 'admin',
+                ],
+                [
+                    'text' => 'Master',
+                    'icon' => 'fas fa-solid fa-toolbox',
+                    'url' => 'master-mgmt',
+                    // 'can' => 'admin',
+                ],
+            ],
         ],
         ['header' => 'account_settings'],
         [
@@ -370,7 +397,7 @@ return [
             'route' => 'profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
-        
+
     ],
 
     /*
@@ -408,51 +435,6 @@ return [
     */
 
     'plugins' => [
-        'Datatables' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
-                ],
-            ],
-        ],
-        'Select2' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
-                ],
-            ],
-        ],
-        'Chartjs' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
-                ],
-            ],
-        ],
         'Sweetalert2' => [
             'active' => true,
             'files' => [
@@ -463,21 +445,67 @@ return [
                 ],
             ],
         ],
-        'Pace' => [
+        'Datatables' => [
             'active' => false,
             'files' => [
                 [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.print.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/jszip/jszip.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
                 ],
             ],
         ],
+
     ],
 
     /*

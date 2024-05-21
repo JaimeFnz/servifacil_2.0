@@ -8,6 +8,7 @@
 @stop
 
 @section('content')
+    <x-adminlte-alert>Minimal example</x-adminlte-alert>
     <p>Welcome to this beautiful admin panel.</p>
 @stop
 

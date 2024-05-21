@@ -4,3 +4,4 @@ Blade
 Bootstrap
 AdminLTE
 Sweetalert2
+Datatables
