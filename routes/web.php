@@ -35,8 +35,8 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/cook', [\App\Http\Controllers\CookController::class, 'index'])->name('cook.index');
-    Route::get('/dishes/{id?}', [\App\Http\Controllers\DishController::class, 'show'])->name('dish.show');
     Route::get('/dishes/{section?}', [\App\Http\Controllers\DishController::class, 'index'])->name('dishes.index');
+    Route::get('/dish/{id?}', [\App\Http\Controllers\DishController::class, 'show'])->name('dish.show');
 
 });
 

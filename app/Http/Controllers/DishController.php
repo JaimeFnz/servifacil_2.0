@@ -35,26 +35,6 @@ class DishController extends Controller
         return view('dishes', compact('dishes'));
     }
 
-
-    /**
-     * Display the specified resource.
-     * 
-     * Takes the time of preparation from the "plato" table
-     * after, it adds the alergens of the dish and returns it
-     */
-    public function show(string $id)
-    {
-        if ($id) {
-            $main = Plato::where('id', $id)->pluck('tiempo')->first();
-            $dish = Producto::with('alergenos')->findOrFail($id);
-            $dish->main = $main;
-        }else {
-            return view('dish')->with('error', "The dish wasn't found");
-        }
-            // return dd($dish);
-        return view('dish', compact('dish'));
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -70,6 +50,20 @@ class DishController extends Controller
     {
         //
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $main = Plato::where('id', $id)->pluck('tiempo')->first();
+        $dish = Producto::where('id', $id)->get()->first();
+        $dish->main = $main;
+
+        // return dd($dish);
+        return view('dish', compact('dish'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
