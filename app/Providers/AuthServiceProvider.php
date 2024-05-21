@@ -34,19 +34,19 @@ class AuthServiceProvider extends ServiceProvider
          */
 
         Gate::define('admin', function (User $user) {
-            return $user->tipo === 'admin';
+            return $user->isAdmin();
         });
 
         Gate::define('boss', function (User $user) {
-            return $user->tipo === 'jefe';
+            return $user->isBoss();
         });
 
         Gate::define('waiter', function(User $user){
-            return $user->tipo === 'camarero';
+            return $user->isWaiter();
         });
 
         Gate::define('cook', function(User $user){
-            return $user->tipo === 'cocinero';
+            return $user->isCook();
         });
 
         /**
@@ -60,13 +60,13 @@ class AuthServiceProvider extends ServiceProvider
          * 
          */
 
-        Gate::define('update.role', function (User $user){
+        // Gate::define('update.role', function (User $user){
 
-        });
+        // });
 
-        Gate::define('create.company', function(User $user){
+        // Gate::define('create.company', function(User $user){
 
-        });
+        // });
 
     }
 }

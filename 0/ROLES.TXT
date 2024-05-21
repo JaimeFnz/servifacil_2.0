@@ -1,133 +1,56 @@
-Te quiero preguntar sobre el funcionamiento de las gates en laravel, ya que un paquete que estoy utilizando llamado adminLTE trabaja utilizando gates para mostrar y ocultar botones,  y me preguntaba, si podría utilizar las gates como un sistema de roles 
-
-ChatGPT
-¡Claro que sí! En Laravel, las gates (puertas) y las políticas son herramientas poderosas para controlar el acceso a ciertas partes de tu aplicación basadas en las capacidades del usuario. Mientras que las políticas se utilizan típicamente para definir reglas de acceso a modelos específicos, las gates son más generales y pueden ser utilizadas para cualquier lógica de autorización que necesites.
-
-Si estás utilizando gates para mostrar u ocultar botones en tu interfaz de usuario, puedes definitivamente utilizarlas como parte de un sistema de roles. Aquí te muestro cómo puedes hacerlo:
-
-Definir tus gates: Antes de poder utilizar gates para roles, primero necesitas definir las gates en tu aplicación. Puedes hacer esto en el archivo AuthServiceProvider que se encuentra en app/Providers.
+1. Define las Gates en AuthServiceProvider
 php
 Copiar código
 use Illuminate\Support\Facades\Gate;
 
-public function boot()
+class AuthServiceProvider extends ServiceProvider
 {
-    $this->registerPolicies();
-
-    Gate::define('admin', function ($user) {
-        return $user->isAdmin();
-    });
-
-    Gate::define('editor', function ($user) {
-        return $user->isEditor();
-    });
-
-    // Define más gates según tus necesidades...
-}
-Utilizar las gates en tu interfaz de usuario: Una vez que has definido tus gates, puedes utilizarlas en tu interfaz de usuario para mostrar u ocultar botones, enlaces, o cualquier otra funcionalidad que desees controlar según el rol del usuario.
-php
-Copiar código
-@can('admin')
-    <!-- Mostrar botones o enlaces específicos para administradores -->
-@endcan
-
-@can('editor')
-    <!-- Mostrar botones o enlaces específicos para editores -->
-@endcan
-Asignar roles a los usuarios: Para que esto funcione, necesitas tener un sistema de roles en tu aplicación y asignar los roles correspondientes a cada usuario. Puedes hacer esto utilizando relaciones en tu modelo User, o utilizando algún paquete de gestión de roles como "spatie/laravel-permission".
-Con este enfoque, puedes controlar qué funcionalidades son accesibles para cada tipo de usuario en tu aplicación, simplemente definiendo las gates adecuadas y utilizándolas en tu interfaz de usuario.
-
-User
-Y la funcion de isAdmin o isEditor que habria que definiarla en el modelo del usuario?
-
-ChatGPT
-Exacto, para utilizar las gates como parte de un sistema de roles en Laravel, necesitarás definir métodos en tu modelo de usuario que verifiquen si el usuario tiene un determinado rol. Aquí te muestro un ejemplo de cómo podrías implementar estos métodos en tu modelo User:
-
-php
-Copiar código
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
-{
-    // Otras propiedades y métodos del modelo User...
-
-    public function isAdmin()
+    public function boot(): void
     {
-        // Lógica para verificar si el usuario tiene el rol de administrador
-        return $this->role === 'admin'; // Ejemplo: Comprueba si el campo 'role' es igual a 'admin'
-    }
-
-    public function isEditor()
-    {
-        // Lógica para verificar si el usuario tiene el rol de editor
-        return $this->role === 'editor'; // Ejemplo: Comprueba si el campo 'role' es igual a 'editor'
-    }
-}
-En este ejemplo, asumimos que tienes un campo llamado 'role' en tu tabla de usuarios que almacena el rol del usuario (puede ser una cadena como 'admin', 'editor', etc.). Puedes adaptar la lógica de estos métodos según cómo estés gestionando los roles en tu aplicación.
-
-Una vez que hayas definido estos métodos en tu modelo User, podrás utilizarlos en tus gates para verificar si un usuario tiene un determinado rol y así controlar el acceso a ciertas partes de tu aplicación. Por ejemplo:
-
-php
-Copiar código
-Gate::define('admin', function ($user) {
-    return $user->isAdmin();
-});
-
-Gate::define('editor', function ($user) {
-    return $user->isEditor();
-});
-Con esto, podrás utilizar las gates admin y editor para controlar el acceso a funcionalidades específicas en tu aplicación basadas en los roles de los usuarios.
-
-User
-Siendo que esta es la tabla de los usuarios, cual sería la forma correcta de comprobar que rol tienen dentro del modelo?
-Schema::create('user', function (Blueprint $table) {
-            $table->string('dni')->primary();
-            $table->string('name');
-            $table->string('surname');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->unsignedBigInteger('id_empresa');
-            $table->enum('puesto', ['jefe', 'camarero', 'cocinero']);
-            $table->foreign('id_empresa')->references('id')->on('empresa');
-            $table->rememberToken();
-            $table->timestamps();
+        Gate::define('admin', function ($user) {
+            return $user->isAdmin();
         });
 
-ChatGPT
-Dado el esquema de tu tabla users, donde aparentemente no tienes un campo explícito para el rol, podrías inferir el rol del usuario basado en el campo puesto. Aquí te muestro cómo podrías hacerlo:
-
+        Gate::define('editor', function ($user) {
+            return $user->isEditor();
+        });
+    }
+}
+2. Usa las Gates en tus Controladores o Vistas Blade
 php
 Copiar código
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
-{
-    // Otras propiedades y métodos del modelo User...
-
-    public function isAdmin()
-    {
-        // Si el puesto del usuario es 'jefe', considerarlo como administrador
-        return $this->puesto === 'jefe';
-    }
-
-    public function isEditor()
-    {
-        // Puedes definir la lógica para otros roles según tus necesidades
-        // Por ejemplo, si el puesto del usuario es 'camarero', considerarlo como editor
-        return $this->puesto === 'camarero';
-    }
-
-    // Otros métodos para roles...
+if (Gate::allows('admin')) {
+    // Acción permitida para los administradores
 }
-Con esta lógica, los usuarios cuyo puesto sea 'jefe' serán considerados administradores, y los usuarios cuyo puesto sea 'camarero' serán considerados editores. Puedes agregar más lógica según sea necesario para otros roles que puedas tener en tu aplicación.
 
-Recuerda que esta es una manera simplificada de gestionar roles basada en el campo puesto. Dependiendo de la complejidad de tu aplicación y tus requisitos de autorización, puede que necesites un enfoque más elaborado, como utilizar una tabla separada para roles y una relación muchos a muchos entre usuarios y roles.
+if (Gate::denies('editor')) {
+    // Acción prohibida para los editores
+}
+3. Protege tus Rutas con Middleware
+php
+Copiar código
+use App\Http\Middleware\CheckRole;
 
+Route::middleware([CheckRole::class . ':admin'])->group(function () {
+    // Rutas accesibles solo para administradores
+});
+4. Implementa el Middleware
+php
+Copiar código
+namespace App\Http\Middleware;
 
+use Closure;
+use Illuminate\Support\Facades\Gate;
 
+class CheckRole
+{
+    public function handle($request, Closure $next, $role)
+    {
+        if (! Gate::allows($role)) {
+            abort(403);
+        }
 
+        return $next($request);
+    }
+}
+Este es un enfoque más directo para definir y utilizar gates en Laravel. Recuerda que las gates te permiten centralizar la lógica de autorización en un solo lugar y hacer que tu código sea más limpio y mantenible.

@@ -37,6 +37,30 @@ class User extends Authenticatable
     ];
 
     /**
+     * Checks the user role
+     */
+    public function giveRole()
+    {
+        return strtoupper($this->puesto);
+    }
+    public function isAdmin()
+    {
+        return $this->puesto === 'jefe';
+    }
+    public function isBoss()
+    {
+        return $this->puesto === 'jefe';
+    }
+    public function isWaiter()
+    {
+        return $this->puesto === 'camarero';
+    }
+    public function isCook()
+    {
+        return $this->puesto === 'cocinero';
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -68,23 +92,6 @@ class User extends Authenticatable
         return 'profile/username';
     }
 
-    /**
-     * Rol checking
-     * 
-     */
-    // public function isAdmin()
-    // {
-    //     return $this->puesto === 'jefe';
-    // }
 
-    // public function isEditor()
-    // {
-    //     return $this->puesto === 'camarero';
-    // }
-
-    // public function isCocinero()
-    // {
-    //     return $this->puesto === 'cocinero';
-    // }
 
 }
