@@ -39,6 +39,19 @@ class DishController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $main = Plato::where('id', $id)->pluck('tiempo')->first();
+        $dish = Producto::where('id', $id)->get()->first();
+        $dish->main = $main;
+
+        // return dd($dish);
+        return view('dish', compact('dish'));
+    }
+    
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -54,18 +67,7 @@ class DishController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $main = Plato::where('id', $id)->pluck('tiempo')->first();
-        $dish = Producto::where('id', $id)->get()->first();
-        $dish->main = $main;
-
-        // return dd($dish);
-        return view('dish', compact('dish'));
-    }
+    
 
 
     /**
