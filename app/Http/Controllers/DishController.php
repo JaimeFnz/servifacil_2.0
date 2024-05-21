@@ -12,10 +12,12 @@ class DishController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * Takes the products of the database, depending on the
+     * section selected, after that it adds the alergens.
      */
     public function index($section)
     {
-        // Comprobar si $section tiene algún valor
         if ($section) {
             if ($section == "all") {
                 // Obtener todos los platos
