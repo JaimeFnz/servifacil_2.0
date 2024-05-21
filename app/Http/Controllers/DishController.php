@@ -16,28 +16,43 @@ class DishController extends Controller
      * Takes the products of the database, depending on the
      * section selected, after that it adds the alergens.
      */
-    public function index($section)
+    public function index(string $section)
     {
+        // Verifica si se proporciona un tipo de sección
         if ($section) {
+            // Si la sección es "all", obtén todos los platos sin filtrar
             if ($section == "all") {
-                // Obtener todos los platos
-                $dishes = Producto::all()->sortBy('tipo');
+                $dishes = Producto::with('alergenos')->orderBy('tipo')->get();
             } else {
-                // Filtrar platos por sección del submenú
-                $dishes = Producto::where('tipo', $section)->get();
+                // Si se proporciona un tipo de sección específico, filtra los platos por ese tipo
+                $dishes = Producto::with('alergenos')->where('tipo', $section)->get();
             }
         } else {
-            // Si $section no tiene valor, obtener todos los platos por defecto
-            $dishes = Producto::all()->sortBy('tipo');
-        }
-
-        // Recoger información sobre alérgenos para cada plato
-        foreach ($dishes as $dish) {
-            // Obtener los alérgenos asociados al plato
-            $dish->alergenos = $this->getAlergenos($dish);
+            // Si no se proporciona ningún tipo de sección, obtén todos los platos sin filtrar
+            $dishes = Producto::with('alergenos')->orderBy('tipo')->get();
         }
 
         return view('dishes', compact('dishes'));
+    }
+
+
+    /**
+     * Display the specified resource.
+     * 
+     * Takes the time of preparation from the "plato" table
+     * after, it adds the alergens of the dish and returns it
+     */
+    public function show(string $id)
+    {
+        if ($id) {
+            $main = Plato::where('id', $id)->pluck('tiempo')->first();
+            $dish = Producto::with('alergenos')->findOrFail($id);
+            $dish->main = $main;
+        }else {
+            return view('dish')->with('error', "The dish wasn't found");
+        }
+            // return dd($dish);
+        return view('dish', compact('dish'));
     }
 
     /**
@@ -55,20 +70,6 @@ class DishController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $main = Plato::where('id', $id)->pluck('tiempo')->first();
-        $dish = Producto::where('id', $id)->get()->first();
-        $dish->main = $main;
-
-        // return dd($dish);
-        return view('dish', compact('dish'));
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -91,7 +92,7 @@ class DishController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //  
     }
 
     // Función privada para obtener los alérgenos de un plato
