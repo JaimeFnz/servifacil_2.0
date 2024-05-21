@@ -6,7 +6,8 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-lg-8 mt-5">
-                @if ($dish->count() > 0)
+                @dd($dish)
+                @if ($dish)
                     <div class="card">
                         <img src="{{ asset('img/' . $dish->imagen) }}" class="card-img-top" alt="{{ $dish->imagen }}">
                         <div class="card-body">
@@ -26,14 +27,15 @@
                                     <p class="card-text"><strong>Última actualización:</strong> {{ $dish->updated_at }}</p>
                                 </div>
                             </div>
-                        @else
-                            <div class="col-md-12">
-                                <div class="alert alert-info">
-                                    No hay platos disponibles.
-                                </div>
-                            </div>
                         </div>
                     </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            No hay platos disponibles.
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

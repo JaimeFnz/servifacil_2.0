@@ -35,7 +35,6 @@ class DishController extends Controller
         return view('dishes', compact('dishes'));
     }
 
-
     /**
      * Display the specified resource.
      * 
@@ -44,14 +43,10 @@ class DishController extends Controller
      */
     public function show(string $id)
     {
-        if ($id) {
-            $main = Plato::where('id', $id)->pluck('tiempo')->first();
-            $dish = Producto::with('alergenos')->findOrFail($id);
-            $dish->main = $main;
-        }else {
-            return view('dish')->with('error', "The dish wasn't found");
-        }
-            // return dd($dish);
+        $main = Plato::where('id', $id)->pluck('tiempo')->first();
+        $dish = Producto::with('alergenos')->findOrFail($id);
+        $dish->main = $main;
+        // return dd($dish);
         return view('dish', compact('dish'));
     }
 
