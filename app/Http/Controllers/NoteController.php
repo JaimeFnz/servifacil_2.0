@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comanda;
 use App\Models\Mesa;
+use App\Models\Producto;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -20,11 +23,31 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Update the specified resource in storage.
      */
-    public function create()
+    public function update(Request $request, $id)
     {
-        //
+        // Buscar la comanda por su ID
+        $comanda = Comanda::findOrFail($id);
+        $comanda->validate($request->all());
+        $comanda->update($request->all());
+
+        // Redirigir de vuelta a la página de detalles de la comanda actualizada
+        return redirect()->route('comanda.show', $id)->with('success', 'Comanda updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        try {
+            $comanda = Comanda::findOrFail($id);
+            $comanda->delete();
+            return redirect()->route('comanda.index')->with('success', 'Comanda deleted successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error deleting comanda: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -32,7 +55,34 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            // Aquí van las reglas de validación si es necesario
+        ]);
+
+        try {
+            // Crear una nueva instancia de Comanda con los datos del formulario
+            $comanda = new Comanda([
+                'id_mesa' => $request->input('id_mesa'),
+                // Otros campos para crear si los hay
+            ]);
+
+            // Guardar la nueva comanda en la base de datos
+            $comanda->save();
+
+            return redirect()->route('comanda.index')->with('success', 'Comanda created successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error creating comanda: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $desks = Mesa::all();
+        $products = Producto::select('id', 'nombre', 'tipo')->get();
+        return view ('mgmt.note.create', compact('desks','products'));
     }
 
     /**
@@ -47,22 +97,6 @@ class NoteController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
     {
         //
     }

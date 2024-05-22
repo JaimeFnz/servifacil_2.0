@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class Comanda extends Model
 {
@@ -14,6 +15,13 @@ class Comanda extends Model
     public function mesa()
     {
         return $this->belongsTo(Mesa::class, 'id_mesa');
+    }
+
+    public function validate(array $data)
+    {
+        return Validator::make($data, [
+            'id_mesa' => 'required|exists:mesa,id',
+        ])->validate();
     }
 
     public function productos()
