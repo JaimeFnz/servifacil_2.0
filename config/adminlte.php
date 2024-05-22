@@ -369,24 +369,24 @@ return [
                 [
                     'text' => 'Note management',
                     'icon' => 'fas fa-solid fa-notes-medical',
-                    'url' => 'note-mgmt',
+                    'url' => 'mgmt/note',
                 ],
                 [
                     'text' => 'Desk management',
                     'icon' => 'fas fa-solid fa-notes-medical',
-                    'url' => 'desk-mgmt',
+                    'url' => 'mgmt/desk',
                     'can' => '',
                 ],
-                [
+                    [
                     'text' => 'Company management',
                     'icon' => 'fas fa-solid fa-building',
-                    'url' => 'company-mgmt',
+                    'url' => 'mgmt/company',
                     // 'can' => 'admin',
                 ],
                 [
                     'text' => 'Master',
                     'icon' => 'fas fa-solid fa-toolbox',
-                    'url' => 'master-mgmt',
+                    'url' => 'mgmt/master',
                     // 'can' => 'admin',
                 ],
             ],

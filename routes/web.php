@@ -39,14 +39,24 @@ Route::middleware('auth')->group(function () {
      * Main routes
      */
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
     Route::get('/notes', [NoteController::class, 'index'])->name('note.index');
+    Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
+    Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
+    Route::get('/note/edit/{id?}', [NoteController::class, 'edit'])->name('note.edit');
+    Route::patch('/note/update/{id?}', [NoteController::class, 'update'])->name('note.update');
+    Route::delete('/note/delete/{id?}', [NoteController::class, 'delete'])->name('note.delete');
+    
+
     Route::get('/dishes/{section?}', [DishController::class, 'index'])->name('dishes.index');
     Route::get('/dish/{id?}', [DishController::class, 'show'])->name('dish.show');
 
-    Route::get('/master-mgmt', [DBController::class, 'index'])->name('master-mgmt.index');
-    Route::get('/note-mgmt', [DBController::class, 'note'])->name('note-mgmt.index');
-    Route::get('/desk-mgmt', [DBController::class, 'desk'])->name('desk-mgmt.index');
-    Route::get('/company-mgmt', [DBController::class, 'co'])->name('company-mgmt.index');
+    Route::get('mgmt/master', [DBController::class, 'index'])->name('master-mgmt.index');
+
+    Route::get('mgmt/note', [DBController::class, 'note'])->name('note-mgmt.index');
+
+    Route::get('mgmt/desk', [DBController::class, 'desk'])->name('desk-mgmt.index');
+    Route::get('mgmt/company', [DBController::class, 'co'])->name('company-mgmt.index');
 
 });
 

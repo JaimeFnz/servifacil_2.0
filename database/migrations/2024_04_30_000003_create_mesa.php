@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('mesa', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->unsignedBigInteger('cod_camarero');
             $table->smallInteger('cant_clientes');
             $table->foreign('cod_camarero')->references('id')->on('users');
@@ -21,11 +22,13 @@ return new class extends Migration {
         DB::table('mesa')->insert([
             [
                 'cod_camarero' => '1',
-                'cant_clientes' => '1'
+                'cant_clientes' => '1',
+                'nombre' => 'esquina derecha',
             ],
             [
                 'cod_camarero' => '1',
                 'cant_clientes' => '2',
+                'nombre' => 'esquina izquierda',
             ]
         ]);
     }
