@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('nombre');
             $table->double('precio');
             $table->string('imagen')->default('stock.png');
-            $table->enum('tipo', ['primero', 'segundo', 'postre', 'entrante', 'picapica', 'bebida']);
+            $table->enum('tipo', ['primero', 'segundo', 'postre', 'picapica', 'bebida']);
             $table->timestamps();
         });
 
@@ -52,17 +52,6 @@ return new class extends Migration {
                 'nombre' => 'Helado de Vainilla',
                 'precio' => 4.49,
                 'tipo' => 'postre',
-            ],
-            // Entrantes
-            [
-                'nombre' => 'Croquetas de Jamón',
-                'precio' => 7.49,
-                'tipo' => 'entrante',
-            ],
-            [
-                'nombre' => 'Calamares a la Romana',
-                'precio' => 8.99,
-                'tipo' => 'entrante',
             ],
             // Picapica
             [

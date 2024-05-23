@@ -18,6 +18,6 @@ class Producto extends Model
 
     public function comandas()
     {
-        return $this->belongsToMany(Comanda::class, 'contiene', 'id_producto', 'id_comanda');
+        return $this->belongsToMany(Comanda::class, 'contiene', 'cantidad', 'id_producto', 'id_comanda');
     }
 }

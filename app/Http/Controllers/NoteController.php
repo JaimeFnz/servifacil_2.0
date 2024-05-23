@@ -56,7 +56,7 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // Aquí van las reglas de validación si es necesario
+            
         ]);
 
         try {
