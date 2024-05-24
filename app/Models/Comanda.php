@@ -27,5 +27,6 @@ class Comanda extends Model
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto');
-    }
+                }
+
 }

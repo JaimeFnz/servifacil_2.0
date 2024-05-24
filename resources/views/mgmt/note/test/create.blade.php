@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <x-adminlte-input name="cant_clientes" placeholder="number" type="number" igroup-size="ml" min=1
-                            max="60">
+                        <x-adminlte-input name="cant_clientes" placeholder="number" type="number" igroup-size="ml"
+                            value="0" min=0 max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
                                     <i class="fas fa-hashtag"></i>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="cant_platos[]" placeholder="1" type="number" igroup-size="ml" min=1
+                        <x-adminlte-input name="cant_platos[]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="cant_platos[]" placeholder="1" type="number" igroup-size="ml" min=1
+                        <x-adminlte-input name="cant_platos[]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="cant_platos[]" placeholder="1" type="number" igroup-size="ml" min=1
+                        <x-adminlte-input name="cant_platos[]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
@@ -153,8 +153,7 @@
                     <div class="col-md-4 col-12">
                         <div class="form-group">
                             <x-adminlte-select name="segundo[]" label-class="text-lightblue" igroup-size="ml">
-                                <x-slot name="
-                            prependSlot">
+                                <x-slot name="prependSlot">
                                     <div class="input-group-text bg-gradient-info">
                                         <i>Segundos</i>
                                     </div>
@@ -168,7 +167,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="cant_platos[]" placeholder="1" type="number" igroup-size="ml" min=1
+                        <x-adminlte-input name="cant_platos[]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
@@ -203,7 +202,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="cant_platos[]" placeholder="1" type="number" igroup-size="ml" min=1
+                        <x-adminlte-input name="cant_platos[]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
