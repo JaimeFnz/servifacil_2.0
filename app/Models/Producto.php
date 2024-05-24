@@ -20,4 +20,9 @@ class Producto extends Model
     {
         return $this->belongsToMany(Comanda::class, 'contiene', 'cantidad', 'id_producto', 'id_comanda');
     }
+
+    public function contiene()
+{
+    return $this->hasMany(Contiene::class, 'id_producto');
+}
 }

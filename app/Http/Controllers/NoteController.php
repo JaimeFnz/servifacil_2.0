@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comanda;
+use App\Models\Contiene;
 use App\Models\Mesa;
 use App\Models\Producto;
 use App\Models\User;
@@ -55,23 +56,51 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
+        // Validar los datos de entrada
         $request->validate([
-            
+            'desks' => 'required|exists:mesa,id',
+            'cant_clientes' => 'required|integer|min:1',
+            'drinks.*.id' => 'required|exists:productos,id',
+            'drinks.*.cantidad' => 'required|integer',
+            'picapica.*.id' => 'required|exists:productos,id',
+            'picapica.*.cantidad' => 'required|integer',
+            'primero.*.id' => 'required|exists:productos,id',
+            'primero.*.cantidad' => 'required|integer',
+            'segundo.*.id' => 'required|exists:productos,id',
+            'segundo.*.cantidad' => 'required|integer',
+            'postre.*.id' => 'required|exists:productos,id',
+            'postre.*.cantidad' => 'required|integer',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'exists' => 'El :attribute seleccionado no existe en la base de datos.',
+            'integer' => 'El campo :attribute debe ser un número entero.',
+            'min' => 'El campo :attribute debe ser como mínimo :min.',
         ]);
 
-        try {
-            // Crear una nueva instancia de Comanda con los datos del formulario
-            $comanda = new Comanda([
-                'id_mesa' => $request->input('id_mesa'),
-                // Otros campos para crear si los hay
+        // Crear una nueva comanda
+        $comanda = Comanda::create([
+            'id_mesa' => $request->input('desks'),
+        ]);
+
+        // Procesar los productos y cantidades
+        $this->saveProductos($comanda->id, $request->input('drinks'));
+        $this->saveProductos($comanda->id, $request->input('picapica'));
+        $this->saveProductos($comanda->id, $request->input('primero'));
+        $this->saveProductos($comanda->id, $request->input('segundo'));
+        $this->saveProductos($comanda->id, $request->input('postre'));
+
+        // Redireccionar con un mensaje de éxito
+        return back()->with('status', 'Comanda creada exitosamente');
+    }
+
+    private function saveProductos($comandaId, $productos)
+    {
+        foreach ($productos as $producto) {
+            Contiene::create([
+                'id_comanda' => $comandaId,
+                'id_producto' => $producto['id'],
+                'cantidad' => $producto['cantidad'],
             ]);
-
-            // Guardar la nueva comanda en la base de datos
-            $comanda->save();
-
-            return redirect()->route('comanda.index')->with('success', 'Comanda created successfully');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Error creating comanda: ' . $e->getMessage());
         }
     }
 
@@ -82,7 +111,7 @@ class NoteController extends Controller
     {
         $desks = Mesa::all();
         $products = Producto::select('id', 'nombre', 'tipo')->get();
-        return view ('mgmt.note.create', compact('desks','products'));
+        return view('mgmt.note.create', compact('desks', 'products'));
     }
 
     /**
@@ -98,6 +127,10 @@ class NoteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $info = Contiene::where('id', $id)->get();
+        $info[] = Producto::where('id', $info->id)->get();
+
+        return view('note.edit', compact('info'));
     }
 }
+    

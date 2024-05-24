@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
 /**
  * Dk what all that is
  */
+
 require __DIR__ . '/auth.php';
 
 Auth::routes();

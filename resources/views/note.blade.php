@@ -10,6 +10,7 @@
             {{-- Contenido del carrusel --}}
             <div class="carousel-inner">
                 {{-- Iterar sobre cada mesa --}}
+                @dd($mesas);
                 @foreach ($mesas as $index => $mesa)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         {{-- Comprobar si la mesa tiene comandas --}}
@@ -18,7 +19,7 @@
                             <div class="card">
                                 <div class="card-header bg-dark text-white">
                                     <h4 class="card-title">Mesa {{ $mesa->id }}</h4>
-                                    <span class="float-right">Comandas: {{ $mesa->comandas->count() }}</span>
+                                    <span class="float-right">Comanda: {{ $mesa->comandas->id }}</span>
                                 </div>
                                 <div class="card-body">
                                     {{-- Iterar sobre cada tipo de producto --}}
@@ -28,7 +29,7 @@
                                             {{-- Iterar sobre cada producto de este tipo --}}
                                             @foreach ($productos as $producto)
                                                 <li class="list-group-item">{{ $producto->nombre }} - Precio:
-                                                    {{ $producto->precio }}</li>
+                                                    {{ $producto->precio }} - Cantidad {{ $producto->nombre }}</li>
                                             @endforeach
                                         </ul>
                                     @endforeach

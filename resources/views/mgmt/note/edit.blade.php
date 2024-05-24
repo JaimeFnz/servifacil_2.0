@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($comandaDetails as $detail)
+                    @foreach($info as $detail)
                         <tr>
                             <td>{{ $detail->desk->nombre }}</td>
                             <td>{{ $detail->cant_clientes }}</td>
