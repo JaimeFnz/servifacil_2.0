@@ -18,6 +18,6 @@ class Mesa extends Model
 
     public function comandas()
     {
-        return $this->hasMany(Comanda::class, 'id_mesa');
+        return $this->hasMany(Comanda::class, 'id_mesa', 'finalizada');
     }
 }

@@ -29,6 +29,21 @@ return new class extends Migration {
                 'cod_camarero' => '1',
                 'cant_clientes' => '2',
                 'nombre' => 'esquina izquierda',
+            ],
+            [
+                'cod_camarero' => '1',
+                'cant_clientes' => '2',
+                'nombre' => 'puerta entrada',
+            ],
+            [
+                'cod_camarero' => '1',
+                'cant_clientes' => '2',
+                'nombre' => 'cafetera',
+            ],
+            [
+                'cod_camarero' => '1',
+                'cant_clientes' => '2',
+                'nombre' => 'televisión',
             ]
         ]);
     }

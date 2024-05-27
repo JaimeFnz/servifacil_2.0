@@ -10,8 +10,14 @@ class Comanda extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_mesa'];
+    protected $fillable = ['id_mesa', 'finalizada'];
     protected $table = 'comanda';
+
+    public function isDone(){
+        return $this->finalizada === true;
+    }
+
+
     public function mesa()
     {
         return $this->belongsTo(Mesa::class, 'id_mesa');
@@ -27,6 +33,6 @@ class Comanda extends Model
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto');
-                }
+    }
 
 }
