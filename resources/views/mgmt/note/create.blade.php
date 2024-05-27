@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Comanda')
+@section('title', 'Servifacil | MGMT | Crear Comanda')
 
 @section('content')
     <div class="container-fluid">
@@ -44,11 +44,11 @@
             </div>
 
             <!-- Bebidas -->
-            <div id="drinks-container">
+            <div id="bebida-container">
                 <div class="row form-group-row original">
                     <div class="col-md-4 col-12">
                         <div class="form-group">
-                            <x-adminlte-select name="drinks[0][id]" label-class="text-lightblue" igroup-size="ml">
+                            <x-adminlte-select name="bebida[0][id]" label-class="text-lightblue" igroup-size="ml">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text bg-gradient-info">
                                         <i>Bebidas</i>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <x-adminlte-input name="drinks[0][cantidad]" type="number" igroup-size="ml" value="0" min=0
+                        <x-adminlte-input name="bebida[0][cantidad]" type="number" igroup-size="ml" value="0" min=0
                             max="60">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-dark">
@@ -230,7 +230,7 @@
     <script>
         $(document).ready(function() {
             var counters = {
-                drinks: 1,
+                bebida: 1,
                 picapica: 1,
                 primero: 1,
                 segundo: 1,
@@ -250,7 +250,7 @@
                 });
             }
 
-            cloneFormContainer('#drinks-container', '.add-drink-btn', 'drinks');
+            cloneFormContainer('#bebida-container', '.add-drink-btn', 'bebida');
             cloneFormContainer('#picapica-container', '.add-picapica-btn', 'picapica');
             cloneFormContainer('#primero-container', '.add-primero-btn', 'primero');
             cloneFormContainer('#segundo-container', '.add-segundo-btn', 'segundo');
@@ -260,7 +260,7 @@
             $('#resetButton').click(function() {
                 $('.form-group-row:not(.original)').remove();
                 counters = {
-                    drinks: 1,
+                    bebida: 1,
                     picapica: 1,
                     primero: 1,
                     segundo: 1,

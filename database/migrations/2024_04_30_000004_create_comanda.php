@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('comanda', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mesa');
+            $table->boolean('finalizada')->default(false);
             $table->foreign('id_mesa')->references('id')->on('mesa');
             $table->timestamps();
         });
@@ -23,6 +24,12 @@ return new class extends Migration {
             ],
             [
                 'id_mesa' => '2',
+            ],
+            [
+                'id_mesa' => '3',
+            ],
+            [
+                'id_mesa' => '4',
             ]
         ]);
 

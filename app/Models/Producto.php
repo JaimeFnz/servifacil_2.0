@@ -22,7 +22,7 @@ class Producto extends Model
     }
 
     public function contiene()
-{
-    return $this->hasMany(Contiene::class, 'id_producto');
-}
+    {
+        return $this->hasMany(Contiene::class, 'id_producto');
+    }
 }

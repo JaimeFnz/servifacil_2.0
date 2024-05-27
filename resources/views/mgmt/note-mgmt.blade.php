@@ -6,8 +6,6 @@
 
 @section('content')
 
-    {{-- resources/views/mgmt/note-mgmt.blade.php --}}
-
     @php
         $tableData = [];
         foreach ($data as $item) {
@@ -34,8 +32,16 @@
                     class="table table-striped table-bordered">
                     @foreach ($tableData as $row)
                         <tr>
-                            @foreach ($row as $cell)
-                                <td>{{ $cell }}</td>
+                            @foreach ($row as $key => $cell)
+                                @if ($key == 'finalizada')
+                                    <td>
+                                        <span class="{{ $cell ? 'text-success' : 'text-danger' }}">
+                                            {{ $cell ? 'Sí' : 'No' }}
+                                        </span>
+                                    </td>
+                                @else
+                                    <td>{{ $cell }}</td>
+                                @endif
                             @endforeach
                             <td>
                                 <div class="d-flex justify-content-center">
@@ -43,11 +49,10 @@
                                         title="Editar">
                                         <i class="fa fa-pen"></i>
                                     </a>
-                                    <form action="{{ route('note.delete', $row['id']) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('note.delete', $row['id']) }}" method="POST" class="mx-1">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-xs btn-danger mx-1" title="Eliminar"
-                                            onclick="confirmDelete('{{ $row['id'] }}')">
+                                        <button type="submit" class="btn btn-xs btn-danger" title="Eliminar">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
@@ -59,34 +64,14 @@
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
+
+                @if ($errors->any())
+                    <div class="w-full bg-red-500 p-2 text-center my-2 text-white">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si se confirma la eliminación, enviar el formulario de eliminación
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            });
-        }
-    </script>
 
 @stop

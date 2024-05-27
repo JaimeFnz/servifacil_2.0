@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -39,13 +40,12 @@ Route::middleware('auth')->group(function () {
      * Main routes
      */
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-
     Route::get('/notes', [NoteController::class, 'index'])->name('note.index');
     Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
     Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
     Route::get('/note/edit/{id?}', [NoteController::class, 'edit'])->name('note.edit');
     Route::patch('/note/update/{id?}', [NoteController::class, 'update'])->name('note.update');
-    Route::delete('/note/delete/{id?}', [NoteController::class, 'delete'])->name('note.delete');
+    Route::delete('/note/delete/{id?}', [NoteController::class, 'destroy'])->name('note.delete');
     
 
     Route::get('/dishes/{section?}', [DishController::class, 'index'])->name('dishes.index');
