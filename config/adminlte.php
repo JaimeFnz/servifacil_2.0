@@ -375,13 +375,12 @@ return [
                     'text' => 'Desk management',
                     'icon' => 'fas fa-solid fa-notes-medical',
                     'url' => 'mgmt/desk',
-                    'can' => '',
+                    'can' => 'mgmt.desk',
                 ],
                     [
                     'text' => 'Company management',
                     'icon' => 'fas fa-solid fa-building',
                     'url' => 'mgmt/company',
-                    // 'can' => 'admin',
                 ],
                 [
                     'text' => 'Master',

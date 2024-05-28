@@ -64,6 +64,17 @@ return new class extends Migration {
                 'precio' => 11.49,
                 'tipo' => 'picapica',
             ],
+            // Bebida
+            [
+                'nombre' => 'Cerveza',
+                'precio' => 10.99,
+                'tipo' => 'bebida',
+            ],
+            [
+                'nombre' => 'Vino',
+                'precio' => 11.49,
+                'tipo' => 'bebida',
+            ],
         ]);
         
     }

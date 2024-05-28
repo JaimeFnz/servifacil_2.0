@@ -17,10 +17,14 @@ class Comanda extends Model
         return $this->finalizada === true;
     }
 
-
     public function mesa()
     {
         return $this->belongsTo(Mesa::class, 'id_mesa');
+    }
+    
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto');
     }
 
     public function validate(array $data)
@@ -29,10 +33,4 @@ class Comanda extends Model
             'id_mesa' => 'required|exists:mesa,id',
         ])->validate();
     }
-
-    public function productos()
-    {
-        return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto');
-    }
-
 }

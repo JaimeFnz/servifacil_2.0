@@ -8,8 +8,17 @@
 @stop
 
 @section('content')
-    <x-adminlte-alert>Minimal example</x-adminlte-alert>
-    <p>Welcome to this beautiful admin panel.</p>
+
+    @can('create.desk')
+        <x-adminlte-small-box title="Mesas" text="Añadir mesas" icon="fas fa-chart-bar" theme="info" url="dish/create"
+            url-text="¡Clica aquí!" />
+    @endcan
+
+    @can('create.dish')
+        <x-adminlte-small-box title="Platos" text="Añadir platos" icon="fas fa-chart-bar" theme="teal" url="dish/create"
+            url-text="¡Clica aquí!" />
+    @endcan
+
 @stop
 
 @section('css')

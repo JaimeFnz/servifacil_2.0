@@ -9,7 +9,7 @@ class Mesa extends Model
 {
     use HasFactory;
     protected $table = 'mesa';
-    protected $fillable = ['cod_camarero', 'cant_clientes'];
+    protected $fillable = ['nombre', 'cod_camarero', 'cant_clientes'];
 
     public function camarero()
     {
@@ -18,6 +18,6 @@ class Mesa extends Model
 
     public function comandas()
     {
-        return $this->hasMany(Comanda::class, 'id_mesa', 'finalizada');
+        return $this->hasMany(Comanda::class, 'id_mesa');
     }
 }

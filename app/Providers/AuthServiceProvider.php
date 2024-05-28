@@ -60,13 +60,17 @@ class AuthServiceProvider extends ServiceProvider
          * 
          */
 
-        // Gate::define('update.role', function (User $user){
+        Gate::define('create.dish', function (User $user){
+            return !$user->isWaiter();
+        });
 
-        // });
+        Gate::define('mgmt.desk', function(User $user){
+            return !$user->isCook();
+        });
 
-        // Gate::define('create.company', function(User $user){
-
-        // });
+        Gate::define('mgmt.company', function(User $user){
+            return !$user->isCook();
+        });
 
     }
 }
