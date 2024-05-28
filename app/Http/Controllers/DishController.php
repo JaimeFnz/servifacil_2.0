@@ -50,13 +50,15 @@ class DishController extends Controller
         // return dd($dish);
         return view('dish', compact('dish'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $alergies = Alergeno::all();
+
+        return view('mgmt.dish.create', compact('alergies'));
     }
 
     /**
@@ -64,11 +66,29 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'imagen' => 'image|nullable',
+            'tipo' => 'required|in:primero,segundo,postre,picapica,bebida',
+            'alergenos' => 'array|nullable',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $imagePath = $request->file('imagen')->store('images', 'public');
+            $validated['imagen'] = $imagePath;
+        } else {
+            $validated['imagen'] = 'stock.png';
+        }
+
+        $plato = Producto::create($validated);
+
+        if ($request->has('alergenos')) {
+            $plato->alergenos()->attach($request->alergenos);
+        }
+
+        return back()->with('success', 'Plato creado exitosamente');
     }
-
-    
-
 
     /**
      * Show the form for editing the specified resource.
