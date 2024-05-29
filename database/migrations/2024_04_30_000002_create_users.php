@@ -19,9 +19,8 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_empresa');
+            $table->unsignedBigInteger('id_empresa')->nullable(); 
             $table->enum('puesto', ['admin', 'jefe', 'camarero', 'cocinero']);
-            $table->foreign('id_empresa')->references('id')->on('empresa');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -40,7 +39,7 @@ return new class extends Migration {
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        
+
         DB::table('users')->insert([
             [
                 'dni' => '00000000A',
@@ -50,15 +49,23 @@ return new class extends Migration {
                 'password' => bcrypt('jaime1234'),
                 'id_empresa' => 1,
                 'puesto' => 'jefe'
-
+            ],
+            [
+                'dni' => '00000000B',
+                'name' => 'Juan',
+                'surname' => '',
+                'email' => 'juan@gmail.com',
+                'password' => bcrypt('juan1234'),
+                'id_empresa' => 1,
+                'puesto' => 'camarero'
             ],
             [
                 'dni' => '00000001A',
                 'name' => 'Deborah',
                 'surname' => 'Nabos',
                 'email' => 'deborah@gmail.com',
-                'password' => 'deborah1234',
-                'id_empresa' => 3,
+                'password' => bcrypt('deborah1234'),
+                'id_empresa' => 2,
                 'puesto' => 'jefe',
             ],
             [
@@ -66,8 +73,8 @@ return new class extends Migration {
                 'name' => 'Jorge',
                 'surname' => 'Nitales',
                 'email' => 'jorge@gmail.com',
-                'password' => 'jorge1234',
-                'id_empresa' => 2,
+                'password' => bcrypt('jorge1234'),
+                'id_empresa' => 3,
                 'puesto' => 'jefe',
             ],
             [
@@ -75,8 +82,8 @@ return new class extends Migration {
                 'name' => 'Armando',
                 'surname' => 'Este Banquito',
                 'email' => 'armando@gmail.com',
-                'password' => 'armando1234',
-                'id_empresa' => 3,
+                'password' => bcrypt('armando1234'),
+                'id_empresa' => 2,
                 'puesto' => 'camarero',
             ],
             [
@@ -84,16 +91,11 @@ return new class extends Migration {
                 'name' => 'Maria',
                 'surname' => 'Dolores del orto',
                 'email' => 'maria@gmail.com',
-                'password' => 'maria1234',
-                'id_empresa' => 2,
+                'password' => bcrypt('maria1234'),
                 'puesto' => 'camarero',
+                'id_empresa' => 3,
             ],
         ]);
-
-
-
-
-
 
     }
 
