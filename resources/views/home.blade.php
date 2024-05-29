@@ -9,8 +9,8 @@
 
 @section('content')
 
-    @can('create.desk')
-        <x-adminlte-small-box title="Mesas" text="Añadir mesas" icon="fas fa-chart-bar" theme="info" url="dish/create"
+    @can('mgmt.desk')
+        <x-adminlte-small-box title="Mesas" text="Añadir mesas" icon="fas fa-chart-bar" theme="info" url="mgmt/desk"
             url-text="¡Clica aquí!" />
     @endcan
 

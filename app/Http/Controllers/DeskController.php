@@ -16,14 +16,6 @@ class DeskController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -39,6 +31,27 @@ class DeskController extends Controller
         return back()->with('success', 'Mesa creada exitosamente');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $desk = Mesa::findOrFail($id);
+        if ($desk->comandas->isNotEmpty()) {
+            foreach ($desk->comandas as $comanda) {
+                $comanda->delete();
+            }
+        }
+        $desk->delete();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -64,17 +77,4 @@ class DeskController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $desk = Mesa::findOrFail($id);
-        if ($desk->comandas->isNotEmpty()) {
-            foreach ($desk->comandas as $comanda) {
-                $comanda->delete();
-            }
-        }
-        $desk->delete();
-    }
 }

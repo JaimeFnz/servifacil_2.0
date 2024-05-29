@@ -13,8 +13,6 @@ return new class extends Migration {
         Schema::create('empresa', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('jefe_id')->nullable(); // Nuevo campo para almacenar el ID del jefe de empresa
-            $table->foreign('jefe_id')->references('id')->on('users')->onDelete('set null');
         });
 
         DB::table('empresa')->insert([
