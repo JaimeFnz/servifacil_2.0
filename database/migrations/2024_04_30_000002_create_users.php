@@ -96,7 +96,6 @@ return new class extends Migration {
                 'id_empresa' => 3,
             ],
         ]);
-
     }
 
     /**

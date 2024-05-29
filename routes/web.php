@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     /**
      * Profile editing routes 
      */
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -61,11 +62,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/desk/delete/{id?}', [DeskController::class, 'destroy'])->name('desk.delete');
     });
 
-    Route::get('mgmt/master', [DBController::class, 'index'])->name('master-mgmt.index');
+    Route::get('mgmt/master', [DBController::class, 'index'])->name('master-mgmt.index')->can('admin.all');
     Route::get('mgmt/note', [DBController::class, 'note'])->name('note-mgmt.index');
     Route::get('mgmt/desk', [DBController::class, 'desk'])->name('desk-mgmt.index');
-    Route::get('mgmt/company', [DBController::class, 'co'])->name('company-mgmt.index');
-
+    Route::get('mgmt/company', [DBController::class, 'co'])->name('company-mgmt.index')->can('mgmt.co');
 });
 
 /**

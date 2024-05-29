@@ -16,7 +16,4 @@ class Empresa extends Model
         return $this->hasMany(User::class, 'id_empresa');
     }
 
-    // public function hasBoss(){
-    //     return $this->jefe_id = 
-    // }
 }

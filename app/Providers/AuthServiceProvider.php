@@ -68,8 +68,12 @@ class AuthServiceProvider extends ServiceProvider
             return !$user->isCook();
         });
 
-        Gate::define('mgmt.company', function(User $user){
-            return !$user->isCook();
+        Gate::define('mgmt.co', function(User $user){
+            return ($user->isBoss() || $user->isAdmin());
+        });
+
+        Gate::define('admin.all', function(User $user){
+            return $user->isAdmin();
         });
 
     }

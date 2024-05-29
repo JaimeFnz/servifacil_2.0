@@ -36,6 +36,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function workingFor(){
+        return $this->id_empresa;
+    }
+
     /**
      * Checks the user role
      */
