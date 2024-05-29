@@ -19,18 +19,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('id_empresa')->references('id')->on('empresa')->onDelete('cascade');
         });
-
-        DB::table('empresa')->insert([
-            [
-                'name' => 'default'
-            ],
-            [
-                'name' => 'empresa01'
-            ],
-            [
-                'name' => 'empresa02'
-            ]
-        ]);
     }
 
     /**
