@@ -40,8 +40,8 @@ class DBController extends Controller
 
         $cosData = Empresa::all();
         $coColumns = Schema::getColumnListing('empresa');
-
-        $cosHeads = array_map(function ($column) {
+        $users = User::where('puesto', '!=', 'jefe')->where('puesto', '!=', 'admin')->select('id', 'dni', 'name', 'puesto')->get();
+            $cosHeads = array_map(function ($column) {
             return ['label' => ucfirst($column)];
         }, $coColumns);
         $cosHeads[] = ['label' => 'Actions', 'no-export' => true, 'width' => 5];
@@ -51,7 +51,7 @@ class DBController extends Controller
         ];
         $coConfig['columns'][] = ['orderable' => false];
 
-        return view('mgmt.master-mgmt', compact('usersData', 'cosData', 'heads', 'cosHeads', 'config', 'coConfig'));
+        return view('mgmt.master-mgmt', compact('usersData', 'cosData', 'heads', 'cosHeads', 'config', 'coConfig', 'users'));
     }
 
 
@@ -87,9 +87,9 @@ class DBController extends Controller
      * in which company he's working, then takes all the users assigned 
      * to that company.
      * 
-     * After that, it filters the columns, defines the 'heads', 
-     * sets up the configuration for the datatable, and returns 
-     * the 'mgmt.co-mgmt' view with the necessary data.
+     * After that, it fetches the company data, filters the columns, 
+     * defines the 'heads', sets up the configuration for the datatable, 
+     * and returns the 'mgmt.co-mgmt' view with the necessary data.
      */
     public function co()
     {
@@ -98,6 +98,12 @@ class DBController extends Controller
         $data = User::where('id_empresa', $id)
             ->select('id', 'dni', 'name', 'surname', 'email', 'puesto')
             ->get();
+
+        $co = Empresa::find($id);
+        $users = User::where('id_empresa', $id)
+            ->select('dni', 'name', 'puesto')
+            ->get();
+
 
         $allowedColumns = ['id', 'dni', 'name', 'surname', 'email', 'puesto'];
         $columns = Schema::getColumnListing('users');
@@ -114,8 +120,9 @@ class DBController extends Controller
         ];
         $config['columns'][] = ['orderable' => false];
 
-        return view('mgmt.co-mgmt', compact('data', 'heads', 'config'));
+        return view('mgmt.co-mgmt', compact('data', 'heads', 'config', 'co', 'users'));
     }
+
 
     /**
      * Display a listing of the desks.

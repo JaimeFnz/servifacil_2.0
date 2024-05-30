@@ -16,4 +16,10 @@ class Empresa extends Model
         return $this->hasMany(User::class, 'id_empresa');
     }
 
+    public function returnBoss(){
+        $id = $this->jefe_id; 
+        $usr = User::where('id', $id)->first();
+        return $usr;
+    }
+
 }

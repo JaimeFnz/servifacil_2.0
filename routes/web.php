@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\ProfileController;
@@ -62,15 +63,19 @@ Route::middleware('auth')->group(function () {
         Route::delete('/desk/delete/{id?}', [DeskController::class, 'destroy'])->name('desk.delete');
     });
 
+    Route::middleware(['can:admin.all'])->group(function(){
+        Route::get('/company/create', [CoController::class, 'create'])->name('co.create');
+        Route::post('/company/store', [CoController::class, 'store'])->name('co.store');
+        Route::delete('/company/delete/{id?}', [CoController::class, 'destroy'])->name('co.delete');
+        Route::get('/company/edit/{id?}', [CoController::class, 'edit'])->name('co.edit');
+        Route::get('/company/update/{id?}', [CoController::class, 'update'])->name('co.update');
+    });
+
     Route::get('mgmt/master', [DBController::class, 'index'])->name('master-mgmt.index')->can('admin.all');
     Route::get('mgmt/note', [DBController::class, 'note'])->name('note-mgmt.index');
     Route::get('mgmt/desk', [DBController::class, 'desk'])->name('desk-mgmt.index');
     Route::get('mgmt/company', [DBController::class, 'co'])->name('company-mgmt.index')->can('mgmt.co');
 });
-
-/**
- * Dk what all that is
- */
 
 require __DIR__ . '/auth.php';
 
