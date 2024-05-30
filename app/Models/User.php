@@ -36,7 +36,37 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function workingFor(){
+    /**
+     * Generate DNI following the specified pattern.
+     *
+     * @param int $number
+     * @param string $letter
+     * @return string
+     */
+    public static function generateDNI()
+    {
+        static $lastDNI = '00000004D';
+
+        $number = substr($lastDNI, 0, 8);
+        $letter = substr($lastDNI, 8, 1);
+
+        $number = str_pad((int) $number + 1, 8, '0', STR_PAD_LEFT);
+        $letter = chr(ord($letter) + 1);
+        if ($letter > 'Z') {
+            $letter = 'A';
+        }
+
+        $lastDNI = $number . $letter;
+
+        return $lastDNI;
+    }
+
+    /**
+     * Returns the id of the company that this user is 
+     * working for 
+     */
+    public function workingFor()
+    {
         return $this->id_empresa;
     }
 
