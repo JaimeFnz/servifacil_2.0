@@ -43,6 +43,7 @@ class DeskController extends Controller
             }
         }
         $desk->delete();
+        return back()->with('success', 'Mesa eliminada exitosamente');
     }
 
     /**

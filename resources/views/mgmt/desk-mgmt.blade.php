@@ -43,10 +43,12 @@
                             @endforeach
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <form action="{{ route('desk.delete', $row['id']) }}" method="POST" class="mx-1">
+                                    <form id="deleteForm{{ $row['id'] }}" action="{{ route('desk.delete', $row['id']) }}"
+                                        method="POST" class="mx-1">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger mx-1" title="Eliminar">
+                                        <button type="button" class="btn btn-xs btn-danger mx-1" title="Eliminar"
+                                            onclick="confirmDelete('{{ $row['id'] }}')">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
@@ -87,7 +89,8 @@
                                             </div>
                                         </x-slot>
                                         @foreach ($waiters as $waiter)
-                                            <option value="{{ $waiter->id }}">{{ $waiter->name }} {{$waiter->surname}}</option>
+                                            <option value="{{ $waiter->id }}">{{ $waiter->name }} {{ $waiter->surname }}
+                                            </option>
                                         @endforeach
                                     </x-adminlte-select>
                                 </div>

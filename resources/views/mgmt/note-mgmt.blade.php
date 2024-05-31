@@ -49,10 +49,12 @@
                                         title="Editar">
                                         <i class="fa fa-pen"></i>
                                     </a>
-                                    <form action="{{ route('note.delete', $row['id']) }}" method="POST" class="mx-1">
+                                    <form id="deleteForm{{ $row['id'] }}" action="{{ route('note.delete', $row['id']) }}"
+                                        method="POST" class="mx-1">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger mx-1" title="Eliminar">
+                                        <button type="button" class="btn btn-xs btn-danger mx-1" title="Eliminar"
+                                            onclick="confirmDelete('{{ $row['id'] }}')">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
