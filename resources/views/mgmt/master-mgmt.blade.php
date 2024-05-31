@@ -18,8 +18,19 @@
             }
         @endphp
         <div class="container-fluid">
+            {{-- @if ($errors->any())
+                <script>
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "{{ $errors->first() }}", // Mostrará solo el primer error
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                </script>
+            @endif --}}
+
             @if ($errors->any())
-                <div class="w-75 bg-red-500 p-2 text-center my-2 text-white">
+                <div class="w-75 bg-red-500 p-2 text-center my-2 text-dark">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -28,14 +39,24 @@
                 </div>
             @endif
 
+            {{-- @if (session('success'))
+                <script>
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "{{ session('success') }}",
+                        icon: "success"
+                    });
+                </script>
+            @endif --}}
+
             @if (session('success'))
-                <div class="w-75 bg-green-500 p-2 text-center my-2 text-white">
+                <div class="w-75 bg-green-500 p-2 text-center my-2 text-dark">
                     {{ session('success') }}
                 </div>
             @endif
 
             <div class="row justify-content-center align-items-start">
-                <div class="col-md-6 mt-3">
+                <div class="col-md-12 mt-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Listado Usuarios') }}</h3>
@@ -51,8 +72,12 @@
                                         @endforeach
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <form action="{{ route('desk.delete', $row['id']) }}" method="POST"
-                                                    class="mx-1">
+                                                <a href="{{ route('master-mgmt.user.edit', $row['id']) }}"
+                                                    class="btn btn-xs btn-primary mx-1" title="Editar">
+                                                    <i class="fa fa-pen"></i>
+                                                </a>
+                                                <form action="{{ route('master-mgmt.user.delete', $row['id']) }}"
+                                                    method="POST" class="mx-1">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-xs btn-danger mx-1"
@@ -65,94 +90,6 @@
                                     </tr>
                                 @endforeach
                             </x-adminlte-datatable>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mt-3">
-                    <div class="card shadow-sm">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('Modificar Usuario') }}</h3>
-                        </div>
-                        {{-- -> MODIFICAR USUARIOS --}}
-                        <div class="card-body">
-                            <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
-                                @csrf
-                                @method('patch')
-
-                                <!-- Select User by DNI -->
-                                <div class="form-group">
-                                    <label for="dni">{{ __('DNI del Usuario') }}</label>
-                                    <select id="dni" name="dni" class="form-control" required>
-                                        <option value="" disabled selected>{{ __('Seleccione un usuario') }}</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->dni }}">{{ $user->dni }} | {{ $user->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('dni'))
-                                        <div class="text-danger mt-2">
-                                            {{ $errors->first('dni') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Field to Update Email -->
-                                <div class="form-group">
-                                    <label for="email">{{ __('Email') }}</label>
-                                    <input id="email" name="email" type="email" class="form-control"
-                                        value="{{ old('email') }}" required>
-                                    @if ($errors->has('email'))
-                                        <div class="text-danger mt-2">
-                                            {{ $errors->first('email') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Field to Update Password -->
-                                <div class="form-group">
-                                    <label for="password">{{ __('Contraseña') }}</label>
-                                    <input id="password" name="password" type="password" class="form-control">
-                                    @if ($errors->has('password'))
-                                        <div class="text-danger mt-2">
-                                            {{ $errors->first('password') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Field to Update Company -->
-                                <div class="form-group">
-                                    <label for="empresa">{{ __('Empresa') }}</label>
-                                    <select id="empresa" name="empresa" class="form-control">
-                                        <option value="" disabled selected>{{ __('Seleccione una empresa') }}
-                                        </option>
-                                        @foreach ($cosData as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('empresa'))
-                                        <div class="text-danger mt-2">
-                                            {{ $errors->first('empresa') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Field to Update Position -->
-                                <div class="form-group">
-                                    <label for="puesto">{{ __('Puesto') }}</label>
-                                    <input id="puesto" name="puesto" type="text" class="form-control"
-                                        value="{{ old('puesto') }}" required>
-                                    @if ($errors->has('puesto'))
-                                        <div class="text-danger mt-2">
-                                            {{ $errors->first('puesto') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Button to Save Changes -->
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">{{ __('Actualizar Usuario') }}</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -238,6 +175,4 @@
                 </div>
             </div>
         </div>
-        </div>
-
     @stop

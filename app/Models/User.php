@@ -77,9 +77,10 @@ class User extends Authenticatable
     {
         return strtoupper($this->puesto);
     }
+    
     public function isAdmin()
     {
-        return $this->puesto === 'jefe';
+        return $this->puesto === 'admin';
     }
     public function isBoss()
     {
