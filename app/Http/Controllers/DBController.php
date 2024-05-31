@@ -12,48 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class DBController extends Controller
 {
+
     /**
      * Display a listing of the resource.
-     * 
-     * It retrieves the logged user's ID and fetches all users except the logged user.
-     * 
-     * Then it filters the columns, defines the 'heads', sets up the configuration for the datatable,
-     * and returns the 'mgmt.master-mgmt' view with the necessary data.
      */
     public function index()
     {
-        $usrId = Auth::id();
-        $usersData = User::where('id', '!=', $usrId)->select('id', 'dni', 'name', 'surname', 'email', 'puesto')->get();
-        $allowedColumns = ['id', 'dni', 'name', 'surname', 'email', 'puesto'];
-        $columns = Schema::getColumnListing('users');
-        $filteredColumns = array_intersect($columns, $allowedColumns);
-        $heads = array_map(function ($column) {
-            return ['label' => ucfirst($column)];
-        }, $filteredColumns);
-        $heads[] = ['label' => 'Actions', 'no-export' => true, 'width' => 5];
-        $config = [
-            'order' => [[1, 'asc']],
-            'columns' => array_fill(0, count($filteredColumns), null),
-        ];
-        $config['columns'][] = ['orderable' => false];
-
-
-        $cosData = Empresa::all();
-        $coColumns = Schema::getColumnListing('empresa');
-        $users = User::where('puesto', '!=', 'jefe')->where('puesto', '!=', 'admin')->select('id', 'dni', 'name', 'puesto')->get();
-            $cosHeads = array_map(function ($column) {
-            return ['label' => ucfirst($column)];
-        }, $coColumns);
-        $cosHeads[] = ['label' => 'Actions', 'no-export' => true, 'width' => 5];
-        $coConfig = [
-            'order' => [[1, 'asc']],
-            'columns' => array_fill(0, count($coColumns), null),
-        ];
-        $coConfig['columns'][] = ['orderable' => false];
-
-        return view('mgmt.master-mgmt', compact('usersData', 'cosData', 'heads', 'cosHeads', 'config', 'coConfig', 'users'));
+        //
     }
-
 
     /**
      * Display a listing of the notes.
@@ -135,13 +101,8 @@ class DBController extends Controller
      */
     public function desk()
     {
-        // Obtener todos los datos de la tabla 'mesa'
         $data = Mesa::all();
-
-        // Obtener los nombres de las columnas de la tabla 'mesa'
         $columns = Schema::getColumnListing('mesa');
-
-        // Definir los 'heads' utilizando los nombres de las columnas obtenidas
         $heads = array_map(function ($column) {
             return ['label' => ucfirst($column)];
         }, $columns);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CoController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DeskController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DBController;
@@ -34,7 +35,7 @@ Route::middleware('auth')->group(function () {
     /**
      * Profile editing routes 
      */
-    
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -63,20 +64,26 @@ Route::middleware('auth')->group(function () {
         Route::delete('/desk/delete/{id?}', [DeskController::class, 'destroy'])->name('desk.delete');
     });
 
-    Route::middleware(['can:admin.all'])->group(function(){
+    Route::middleware(['can:admin.all'])->group(function () {
         Route::get('/company/create', [CoController::class, 'create'])->name('co.create');
         Route::post('/company/store', [CoController::class, 'store'])->name('co.store');
         Route::delete('/company/delete/{id?}', [CoController::class, 'destroy'])->name('co.delete');
         Route::get('/company/edit/{id?}', [CoController::class, 'edit'])->name('co.edit');
         Route::get('/company/update/{id?}', [CoController::class, 'update'])->name('co.update');
+
+        Route::get('mgmt/master', [MasterController::class, 'index'])->name('master-mgmt.index');
+        Route::get('mgmt/master/users/edit/{id?}', [MasterController::class, 'users'])->name('master-mgmt.user.edit');
+        Route::patch('mgmt/master/users/update/{id?}', [MasterController::class, 'update'])->name('master-mgmt.user.update');
+        Route::delete('mgmt/master/users/delete/{id?}', [MasterController::class, 'delete'])->name('master-mgmt.user.delete');
     });
 
-    Route::get('mgmt/master', [DBController::class, 'index'])->name('master-mgmt.index')->can('admin.all');
+
     Route::get('mgmt/note', [DBController::class, 'note'])->name('note-mgmt.index');
     Route::get('mgmt/desk', [DBController::class, 'desk'])->name('desk-mgmt.index');
     Route::get('mgmt/company', [DBController::class, 'co'])->name('company-mgmt.index')->can('mgmt.co');
-});
 
+
+});
 require __DIR__ . '/auth.php';
 
 Auth::routes();
