@@ -4,7 +4,30 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center"> <!-- Añadimos la clase justify-content-center para centrar el contenido -->
+        <div class="row justify-content-center">
+            @if ($errors->any())
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            title: "Oops...",
+                            text: "{{ $errors->first() }}",
+                            icon: "error",
+                        });
+                    });
+                </script>
+            @endif
+
+            @if (session('success'))
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            title: "Good job!",
+                            text: "{{ session('success') }}",
+                            icon: "success",
+                        });
+                    });
+                </script>
+            @endif
             <div class="col-md-6 mt-3">
                 <div class="card">
                     <div class="card-header">
@@ -78,7 +101,7 @@
                                 </x-adminlte-select>
                             </div>
 
-                            <x-adminlte-button type="submit" label="Submit" theme="primary" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button type="submit" label="Submit" theme="primary" icon="fas fa-lg fa-save" />
                         </form>
                     </div>
                 </div>

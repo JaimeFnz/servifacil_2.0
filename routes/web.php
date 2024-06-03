@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('mgmt/master/users/delete/{id?}', [MasterController::class, 'delete'])->name('master-mgmt.user.delete');
     });
 
+    
 
     Route::get('mgmt/note', [DBController::class, 'note'])->name('note-mgmt.index');
     Route::get('mgmt/desk', [DBController::class, 'desk'])->name('desk-mgmt.index');

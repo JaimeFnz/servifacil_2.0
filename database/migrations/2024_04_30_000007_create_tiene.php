@@ -54,11 +54,11 @@ return new class extends Migration {
             ],
             [
                 'id_producto' => '1',
-                'id_alergeno' => '1',
+                'id_alergeno' => '2',
             ],
             [
                 'id_producto' => '2',
-                'id_alergeno' => '2',
+                'id_alergeno' => '1',
             ]
         ]);
     }
