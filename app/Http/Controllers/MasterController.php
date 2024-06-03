@@ -25,46 +25,44 @@ class MasterController extends Controller
         return view('mgmt.master.user', compact('user', 'companies', 'positions'));
     }
 
+    /**
+     * 
+     * 
+     */
     public function update(Request $request, $id)
     {
         try {
-
-
-            // Validar los datos del formulario
             $request->validate([
                 'name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255', // Aquí el nombre del campo debe ser 'last_name' en lugar de 'surname'
+                'last_name' => 'nullable|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $id,
                 'dni' => 'required|string|max:255|unique:users,dni,' . $id,
                 'password' => 'nullable|string|min:8',
-                'company' => 'required|exists:empresa,id', // Aquí el nombre del campo debe ser 'company' en lugar de 'empresa'
+                'company' => 'required|exists:empresa,id',
                 'position' => 'required|string|in:admin,jefe,camarero,cocinero',
             ]);
 
-            // Obtener el usuario a actualizar
             $user = User::findOrFail($id);
-
-            // Actualizar los datos del usuario
             $user->name = $request->name;
-            $user->surname = $request->last_name; // Aquí se cambia 'surname' por 'last_name' para coincidir con el nombre del campo en la vista
+            $user->surname = $request->last_name;
             $user->email = $request->email;
             $user->dni = $request->dni;
             if ($request->has('password')) {
                 $user->password = bcrypt($request->password);
             }
-            $user->id_empresa = $request->company; // Aquí se cambia 'empresa' por 'company' para coincidir con el nombre del campo en la vista
+            $user->id_empresa = $request->company;
             $user->puesto = $request->position;
             $user->save();
-
-            // Redireccionar con un mensaje de éxito
-            return redirect()->route('master-mgmt.index');
-        } catch (\Throwable $th) {
-
+            return back()->with('success', "Usuario actualizado correctamente");
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Error inesperado al eliminar el usuario: ' . $e->getMessage());
         }
     }
 
     /**
      * Elimina un usuario.
+     * 
+     * @param int $id
      */
     public function delete($id)
     {
@@ -72,9 +70,9 @@ class MasterController extends Controller
             $user = User::findOrFail($id);
             $user->delete();
 
-            return redirect()->route('master-mgmt.index')->with('success', 'Usuario eliminado correctamente.');
+            return back()->with('success', 'Usuario eliminado correctamente.');
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'Error inesperado al eliminar el usuario: ' . $e->getMessage());
+            return back()->with('error', 'Error inesperado al eliminar el usuario: ' . $e->getMessage());
         }
     }
 

@@ -5,3 +5,4 @@ Bootstrap
 AdminLTE
 Sweetalert2
 Datatables
+Localization (traducir)

@@ -13,7 +13,8 @@ class Comanda extends Model
     protected $fillable = ['id_mesa', 'finalizada'];
     protected $table = 'comanda';
 
-    public function isDone(){
+    public function isDone()
+    {
         return $this->finalizada === true;
     }
 
@@ -21,10 +22,11 @@ class Comanda extends Model
     {
         return $this->belongsTo(Mesa::class, 'id_mesa');
     }
-    
+
     public function productos()
     {
-        return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto');
+        return $this->belongsToMany(Producto::class, 'contiene', 'id_comanda', 'id_producto')
+            ->withPivot('cantidad'); // Si hay otros campos en la tabla intermedia, también puedes incluirlos aquí
     }
 
     public function validate(array $data)

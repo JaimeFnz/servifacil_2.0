@@ -13,15 +13,24 @@ use Illuminate\Http\Request;
 class NoteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the notes, products, and desks
      */
-    public function index()
+        public function index()
     {
-        // Obtener todas las mesas con sus comandas y productos asociados
-        $mesas = Mesa::with(['comandas.productos.alergenos', 'camarero'])->get();
+        // Obtener todas las comandas con sus productos, alergenos y la cantidad asociada
+        $notes = Comanda::with([
+            'mesa',
+            'productos' => function ($query) {
+                $query->select('productos.*', 'contiene.cantidad as cantidad');
+            },
+            'productos.alergenos',
+            'mesa.camarero'
+        ])
+            ->whereHas('mesa')
+            ->get();
 
         // Pasar los datos a la vista
-        return view('note', compact('mesas'));
+        return view('note', compact('notes'));
     }
 
     /**
@@ -94,9 +103,9 @@ class NoteController extends Controller
             $this->saveProductos($note->id, $request->input('postre'));
 
             // Redireccionar con un mensaje de éxito
-            return back()->with('status', 'Note creada exitosamente');
+            return redirect()->route('home')->with('success', 'Note creada exitosamente');
         } catch (\Exception $e) {
-            return back()->with('error', 'La nota no puedo ser creda: '. $e);
+            return back()->with('error', 'La nota no puedo ser creda: ' . $e);
         }
     }
 
