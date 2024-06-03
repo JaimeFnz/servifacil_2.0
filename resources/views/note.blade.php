@@ -4,12 +4,12 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mx-auto"> <!-- Añadido mx-auto -->
+        <div class="row mx-auto">
             <div id="comandasCarousel" class="carousel slide w-100 mt-4" data-ride="carousel" data-interval="false">
                 <div class="carousel-inner">
                     @foreach ($notes as $index => $note)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mt-3 mx-auto"> <!-- Añadido mx-auto -->
+                            <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mt-3 mx-auto">
                                 <div class="card">
                                     <div class="card-header bg-dark text-white d-flex justify-content-between">
                                         <h4 class="card-title mb-0">{{ __('Mesa') }} {{ $note->mesa->id }}</h4>
