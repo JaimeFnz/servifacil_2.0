@@ -237,7 +237,7 @@ return [
     |
     */
 
-    'right_sidebar' => true,
+    'right_sidebar' => null,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -307,7 +307,7 @@ return [
         ],
 
         // Sidebar items:
-        ['header' => 'MAIN'],
+        ['header' => 'PRINCIPAL'],
         [
             'text' => 'test01',
             'topnav' => 'true' //Para que se añada al navbar
@@ -318,67 +318,67 @@ return [
             'icon' => 'fas fa-solid fa-home'
         ],
         [
-            'text' => ' Dishes',
+            'text' => ' Platos',
             'icon' => 'fas fa-solid fa-layer-group',
             'label' => 'News!',
             'label_color' => 'success',
 
             'submenu' => [
                 [
-                    'text' => 'First plate',
+                    'text' => 'Primer plato',
                     'icon' => 'fas fa-solid fa-utensils',
                     'route' => ['dishes.index', ['section' => 'primero']],
                 ],
                 [
-                    'text' => 'Second plate',
+                    'text' => 'Segundo plato',
                     'icon' => 'fas fa-solid fa-utensils',
                     'route' => ['dishes.index', ['section' => 'segundo']],
                 ],
                 [
-                    'text' => 'Dessert',
+                    'text' => 'Postre',
                     'icon' => 'fas fa-solid fa-ice-cream',
                     'route' => ['dishes.index', ['section' => 'postre']],
                 ],
                 [
-                    'text' => 'Drink',
+                    'text' => 'Bebidas',
                     'icon' => 'fas fa-solid fa-wine-glass',
                     'route' => ['dishes.index', ['section' => 'bebida']],
                 ],
                 [
-                    'text' => 'Others',
+                    'text' => 'Entrantes',
                     'route' => ['dishes.index', ['section' => 'picapica']],
                 ],
                 [
-                    'text' => 'All',
+                    'text' => 'Todos',
                     'icon_color' => 'red',
                     'route' => ['dishes.index', ['section' => 'all']],
                 ]
             ]
         ],
         [
-            'text' => ' Note',
+            'text' => 'Comandas',
             'icon' => 'fas fa-solid fa-clipboard',
             'url' => 'notes',
         ],
-        ['header' => 'MANAGER'],
+        ['header' => 'ADMINISTRACIÓN'],
         [
-            'text' => ' Manage Panels',
+            'text' => 'Administración',
             'icon' => 'fas fa-solid fa-bars',
 
             'submenu' => [
                 [
-                    'text' => 'Note management',
+                    'text' => 'Comandas',
                     'icon' => 'fas fa-solid fa-notes-medical',
                     'url' => 'mgmt/note',
                 ],
                 [
-                    'text' => 'Desk management',
+                    'text' => 'Mesas',
                     'icon' => 'fas fa-solid fa-notes-medical',
                     'url' => 'mgmt/desk',
                     'can' => 'mgmt.desk',
                 ],
                     [
-                    'text' => 'Company management',
+                    'text' => 'Empresa',
                     'icon' => 'fas fa-solid fa-building',
                     'url' => 'mgmt/company',
                     'can' => 'mgmt.co',
@@ -391,9 +391,9 @@ return [
                 ],
             ],
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'AJUSTES DE CUENTA'],
         [
-            'text' => 'Profile',
+            'text' => 'Perfil',
             'route' => 'profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
