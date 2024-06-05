@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('id_empresa')->nullable(); 
-            $table->enum('puesto', ['admin', 'jefe', 'camarero', 'cocinero']);
+            $table->enum('puesto', ['admin', 'jefe', 'camarero', 'cocinero'])->default('camarero');
             $table->rememberToken();
             $table->timestamps();
         });
