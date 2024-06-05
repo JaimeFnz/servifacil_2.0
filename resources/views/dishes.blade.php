@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="row">
-            @dd($dishes);
+            {{-- @dd($dishes); --}}
             @if (count($dishes) > 0)
                 @foreach ($dishes as $dish)
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4 mt-4" >
