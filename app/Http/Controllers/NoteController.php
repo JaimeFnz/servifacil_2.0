@@ -17,7 +17,6 @@ class NoteController extends Controller
      */
     public function index()
     {
-        // Obtener todas las comandas con sus productos, alergenos y la cantidad asociada
         $notes = Comanda::with([
             'mesa',
             'productos' => function ($query) {
@@ -29,7 +28,6 @@ class NoteController extends Controller
             ->whereHas('mesa')
             ->get();
 
-        // Pasar los datos a la vista
         return view('note', compact('notes'));
     }
 
@@ -78,18 +76,18 @@ class NoteController extends Controller
         try {
             // Validar los datos de entrada
             $request->validate([
-                'desks' => 'required|exists:mesa,id',
-                'cant_clientes' => 'required|integer|min:1',
-                'drinks.*.id' => 'required|exists:productos,id',
-                'drinks.*.cantidad' => 'integer|min:0',
-                'picapica.*.id' => 'required|exists:productos,id',
-                'picapica.*.cantidad' => 'integer|min:0',
-                'primero.*.id' => 'required|exists:productos,id',
-                'primero.*.cantidad' => 'integer|min:0',
-                'segundo.*.id' => 'required|exists:productos,id',
-                'segundo.*.cantidad' => 'integer|min:0',
-                'postre.*.id' => 'required|exists:productos,id',
-                'postre.*.cantidad' => 'integer|min:0',
+                // 'desks' => 'required|exists:mesa,id',
+                // 'cant_clientes' => 'required|integer|min:1',
+                // 'drinks.*.id' => 'required|exists:productos,id',
+                // 'drinks.*.cantidad' => 'integer|min:1',
+                // 'picapica.*.id' => 'required|exists:productos,id',
+                // 'picapica.*.cantidad' => 'integer|min:1',
+                // 'primero.*.id' => 'required|exists:productos,id',
+                // 'primero.*.cantidad' => 'integer|min:1',
+                // 'segundo.*.id' => 'required|exists:productos,id',
+                // 'segundo.*.cantidad' => 'integer|min:1',
+                // 'postre.*.id' => 'required|exists:productos,id',
+                // 'postre.*.cantidad' => 'integer|min:1',
             ], [
                 'required' => 'El campo :attribute es obligatorio.',
                 'exists' => 'El :attribute seleccionado no existe en la base de datos.',
@@ -126,13 +124,11 @@ class NoteController extends Controller
     private function saveProductos($noteId, $products)
     {
         foreach ($products as $product) {
-            // if ($product['cantidad'] > 0) {
-                Contiene::create([
-                    'id_comanda' => $noteId,
-                    'id_producto' => $product['id'],
-                    'cantidad' => $product['cantidad'],
-                ]);
-            // }
+            Contiene::create([
+                'id_comanda' => $noteId,
+                'id_producto' => $product['id'],
+                'cantidad' => $product['cantidad'],
+            ]);
         }
     }
 
@@ -168,7 +164,4 @@ class NoteController extends Controller
             return redirect('error')->with('error', 'Error al editar la comanda: ' . $e->getMessage());
         }
     }
-
-
-
 }
