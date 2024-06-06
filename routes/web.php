@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\NoteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,8 +69,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/company/create', [CoController::class, 'create'])->name('co.create');
         Route::post('/company/store', [CoController::class, 'store'])->name('co.store');
         Route::delete('/company/delete/{id?}', [CoController::class, 'destroy'])->name('co.delete');
-        Route::get('/company/edit/{id?}', [CoController::class, 'edit'])->name('co.edit');
-        Route::get('/company/update/{id?}', [CoController::class, 'update'])->name('co.update');
+        // Route::get('/company/edit/{id?}', [CoController::class, 'edit'])->name('co.edit');
+        Route::patch('/company/update', [CoController::class, 'update'])->name('co.update');
 
         Route::get('mgmt/master', [MasterController::class, 'index'])->name('master-mgmt.index');
         Route::get('mgmt/master/users/edit/{id?}', [MasterController::class, 'users'])->name('master-mgmt.user.edit');

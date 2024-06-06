@@ -17,6 +17,7 @@ class Empresa extends Model
     }
 
     public function returnBoss(){
+
         $id = $this->jefe_id; 
         $usr = User::where('id', $id)->first();
         return $usr;

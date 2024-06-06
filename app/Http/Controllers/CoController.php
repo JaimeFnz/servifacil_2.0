@@ -69,10 +69,54 @@ class CoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_empresa' => 'string|max:255',
+            'jefe_empresa' => 'required|exists:users,id',
+        ]);
+
+        // Obtenemos el ID de la empresa del usuario actualmente autenticado
+        $id_empresa_usuario = auth()->user()->id_empresa;
+
+        // Verificamos si el usuario tiene una empresa asignada
+        if (!$id_empresa_usuario) {
+            return back()->withErrors('El usuario no tiene una empresa asignada.');
+        }
+
+        // Buscamos la empresa correspondiente al ID del usuario
+        $empresa = Empresa::findOrFail($id_empresa_usuario);
+
+        // Obtener el ID del jefe anterior para actualizar su puesto
+        $oldJefeId = $empresa->jefe_id;
+
+        // Actualizar los datos de la empresa
+        $empresa->name = $request->input('nombre_empresa');
+        $empresa->jefe_id = $request->input('jefe_empresa');
+        $empresa->save();
+
+        // Actualizar los puestos del jefe anterior y el nuevo jefe
+        if ($oldJefeId != $request->input('jefe_empresa')) {
+            // Obtener el usuario anterior que era jefe y actualizar su puesto
+            $oldJefe = User::find($oldJefeId);
+            if ($oldJefe) {
+                $oldJefe->puesto = 'camarero';
+                $oldJefe->save();
+            }
+
+            // Obtener el nuevo jefe y actualizar su puesto
+            $newJefe = User::find($request->input('jefe_empresa'));
+            if ($newJefe) {
+                $newJefe->puesto = 'jefe';
+                $newJefe->save();
+            }
+        }
+
+        return back()->with('success', 'Empresa actualizada y roles asignados correctamente.');
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

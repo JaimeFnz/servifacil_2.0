@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <form method="post" action="{{ route('co.update') }}" class="space-y-6">
                             @csrf
-                            @method('patch')
+                            @method('PATCH');
 
                             <!-- Field to Update Company Name -->
                             <div class="form-group">
@@ -85,8 +85,10 @@
                                 <label for="jefe_empresa">{{ __('Jefe de la Empresa') }}</label>
                                 <select id="jefe_empresa" name="jefe_empresa" class="form-control">
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}"
-                                            {{ $user->id == old('jefe_empresa', $co->returnBoss()->name) ? 'selected' : '' }}>
+                                        <option value="{{ $user->id }}" <?php
+                                        $usr = $co->returnBoss();
+                                        ?>
+                                            {{ $user->id == old('jefe_empresa', $user->name) ? 'selected' : '' }}>
                                             {{ $user->dni }} | {{ $user->name }} | {{ $user->puesto }}
                                         </option>
                                     @endforeach
