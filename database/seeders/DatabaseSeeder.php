@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comanda;
 use App\Models\Empresa;
+use App\Models\Mesa;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $co = Empresa::where('name', 'cachaw')->select('id')->first();
 
         foreach ($usr as $user) {
-            $dni = User::generateDNI();
+            $dni = User::dniInator();
             DB::table('users')->insert([
                 'dni' => $dni,
                 'name' => $user,
@@ -36,5 +38,31 @@ class DatabaseSeeder extends Seeder
                 'puesto' => 'admin',
             ]);
         }
+
+        DB::table('mesa')->insert([
+            'cod_camarero' => '1',
+            'cant_clientes' => '10',
+            'nombre' => 'centro',
+        ]);
+
+        $table = Mesa::where('nombre', 'centro')->first();
+        DB::table('comanda')->insert([
+            'id_mesa' => $table->id,
+            'finalizada' => false,
+        ]);
+
+        $note = Comanda::where('id_mesa', $table->id)->first();
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('contiene')->insert([
+                'id_comanda' => $note->id,
+                'id_producto' => $this->randInator(),
+                'cantidad' => $this->randInator(),
+            ]);
+        }
+    }
+
+    function randInator()
+    {
+        return rand(1, 10);
     }
 }
