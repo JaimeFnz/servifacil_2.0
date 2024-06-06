@@ -28,8 +28,16 @@ class NoteController extends Controller
             ->whereHas('mesa')
             ->get();
 
+        // Calcular el total por comanda
+        $notes->each(function ($note) {
+            $note->totalCost = $note->productos->sum(function ($producto) {
+                return $producto->precio * $producto->pivot->cantidad;
+            });
+        });
+
         return view('note', compact('notes'));
     }
+
 
     /**
      * Update the specified resource in storage.
