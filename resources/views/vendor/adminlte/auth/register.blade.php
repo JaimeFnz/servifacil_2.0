@@ -20,7 +20,7 @@
         {{-- Id field --}}
         <div class="input-group mb-3">
             <input type="text" name="dni" class="form-control @error('dni') is-invalid @enderror"
-                value="{{ old('dni') }}" placeholder="Id number" autofocus>
+                value="{{ old('dni') }}" placeholder="{{__("DNI")}}" autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">

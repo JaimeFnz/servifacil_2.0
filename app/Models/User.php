@@ -43,7 +43,7 @@ class User extends Authenticatable
      * @param string $letter
      * @return string
      */
-    public static function generateDNI()
+    public static function dniInator()
     {
         static $lastDNI = '00000004D';
 
