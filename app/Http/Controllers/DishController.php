@@ -15,26 +15,18 @@ class DishController extends Controller
      */
     public function index($section)
     {
-        // Comprobar si $section tiene algún valor
         if ($section) {
             if ($section == "all") {
-                // Obtener todos los platos
                 $dishes = Producto::all()->sortBy('tipo');
             } else {
-                // Filtrar platos por sección del submenú
                 $dishes = Producto::where('tipo', $section)->get();
             }
         } else {
-            // Si $section no tiene valor, obtener todos los platos por defecto
             $dishes = Producto::all()->sortBy('tipo');
         }
-
-        // Recoger información sobre alérgenos para cada plato
         foreach ($dishes as $dish) {
-            // Obtener los alérgenos asociados al plato
             $dish->alergenos = $this->getAlergenos($dish);
         }
-
         return view('dishes', compact('dishes'));
     }
 
