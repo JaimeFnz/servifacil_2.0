@@ -2,9 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -27,6 +29,46 @@ return new class extends Migration {
             ],
             [
                 'id' => '2',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ],
+            [
+                'id' => '3',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ],
+            [
+                'id' => '4',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ],
+            [
+                'id' => '5',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ],
+            [
+                'id' => '6',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ], 
+            [
+                'id' => '7',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ], 
+            [
+                'id' => '8',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ], 
+            [
+                'id' => '9',
+                'cod_camarero' => '2',
+                'tiempo' => '10',
+            ], 
+            [
+                'id' => '10',
                 'cod_camarero' => '2',
                 'tiempo' => '10',
             ]

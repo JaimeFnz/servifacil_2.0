@@ -19,25 +19,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $usr = ['adrian', 'angel', 'antonio', 'bitor', 'estela', 'ruben', 'valentin', 'test'];
+        $usr = ['adrian', 'angel', 'antonio', 'bitor', 'estela', 'ruben', 'valentin', 'test', 'profesor'];
 
         DB::table('empresa')->insert([
             'name' => 'cachaw'
         ]);
+        DB::table('empresa')->insert([
+            'name' => 'profesores'
+        ]);
 
         $co = Empresa::where('name', 'cachaw')->select('id')->first();
+        $profesores = Empresa::where('name', 'profesores')->select('id')->first();
 
-        foreach ($usr as $user) {
+        for ($i = 0; $i < count($usr); $i++) {
+            $user = $usr[$i];
             $dni = User::dniInator();
+            $empresa_id = $i === count($usr) - 1 ? $profesores->id : $co->id;
+
             DB::table('users')->insert([
                 'dni' => $dni,
                 'name' => $user,
                 'email' => $user . '@gmail.com',
                 'password' => Hash::make($user . '1234'),
-                'id_empresa' => $co->id,
+                'id_empresa' => $empresa_id,
                 'puesto' => 'admin',
             ]);
         }
+
 
         DB::table('mesa')->insert([
             'cod_camarero' => '1',

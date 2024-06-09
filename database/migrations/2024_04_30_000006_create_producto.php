@@ -5,7 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -32,6 +33,16 @@ return new class extends Migration {
                 'precio' => 6.49,
                 'tipo' => 'primero',
             ],
+            [
+                'nombre' => 'Sopa de Tomate',
+                'precio' => 7.49,
+                'tipo' => 'primero',
+            ],
+            [
+                'nombre' => 'Pasta Carbonara',
+                'precio' => 9.99,
+                'tipo' => 'primero',
+            ],
             // Segundos
             [
                 'nombre' => 'Solomillo de Ternera',
@@ -41,6 +52,16 @@ return new class extends Migration {
             [
                 'nombre' => 'Pescado a la Plancha',
                 'precio' => 12.49,
+                'tipo' => 'segundo',
+            ],
+            [
+                'nombre' => 'Pollo al Horno',
+                'precio' => 11.99,
+                'tipo' => 'segundo',
+            ],
+            [
+                'nombre' => 'Lomo a la Parrilla',
+                'precio' => 14.49,
                 'tipo' => 'segundo',
             ],
             // Postres
@@ -54,6 +75,16 @@ return new class extends Migration {
                 'precio' => 4.49,
                 'tipo' => 'postre',
             ],
+            [
+                'nombre' => 'Flan de Huevo',
+                'precio' => 5.99,
+                'tipo' => 'postre',
+            ],
+            [
+                'nombre' => 'Mousse de Chocolate',
+                'precio' => 7.49,
+                'tipo' => 'postre',
+            ],
             // Picapica
             [
                 'nombre' => 'Tablas de Queso',
@@ -63,6 +94,16 @@ return new class extends Migration {
             [
                 'nombre' => 'Tabla de Embutidos',
                 'precio' => 11.49,
+                'tipo' => 'picapica',
+            ],
+            [
+                'nombre' => 'Patatas Bravas',
+                'precio' => 8.99,
+                'tipo' => 'picapica',
+            ],
+            [
+                'nombre' => 'Croquetas Caseras',
+                'precio' => 9.49,
                 'tipo' => 'picapica',
             ],
             // Bebida
@@ -76,8 +117,17 @@ return new class extends Migration {
                 'precio' => 11.49,
                 'tipo' => 'bebida',
             ],
+            [
+                'nombre' => 'Refresco',
+                'precio' => 2.99,
+                'tipo' => 'bebida',
+            ],
+            [
+                'nombre' => 'Agua Mineral',
+                'precio' => 1.99,
+                'tipo' => 'bebida',
+            ],
         ]);
-        
     }
 
     public function down(): void

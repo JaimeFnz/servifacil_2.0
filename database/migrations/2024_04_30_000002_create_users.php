@@ -63,6 +63,7 @@ return new class extends Migration {
             [
                 'dni' => '00000001A',
                 'name' => 'Deborah',
+                'surname' => '',
                 'email' => 'deborah@gmail.com',
                 'password' => bcrypt('deborah1234'),
                 'id_empresa' => 2,
@@ -71,6 +72,7 @@ return new class extends Migration {
             [
                 'dni' => '00000002B',
                 'name' => 'Nitales',
+                'surname' => '',
                 'email' => 'nitales@gmail.com',
                 'password' => bcrypt('nitales1234'),
                 'id_empresa' => 3,
@@ -88,6 +90,7 @@ return new class extends Migration {
             [
                 'dni' => '00000004D',
                 'name' => 'Maria',
+                'surname' => '',
                 'email' => 'maria@gmail.com',
                 'password' => bcrypt('maria1234'),
                 'puesto' => 'camarero',
