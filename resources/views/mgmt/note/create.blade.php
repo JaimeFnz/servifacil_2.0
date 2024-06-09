@@ -7,7 +7,7 @@
         <h3 class="mb-3">Crear Comanda</h3>
         <form action="{{ route('note.store') }}" method="POST" id="comandaForm">
             @csrf
-
+            @method('POST')
             <!-- Mesas y Cantidad de Clientes -->
             <div class="row">
                 <div class="col-md-6">

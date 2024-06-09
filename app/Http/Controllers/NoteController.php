@@ -6,7 +6,9 @@ use App\Models\Alergeno;
 use App\Models\Comanda;
 use App\Models\Contiene;
 use App\Models\Mesa;
+use Illuminate\Support\Facades\Log;
 use App\Models\Producto;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -83,41 +85,38 @@ class NoteController extends Controller
     {
         try {
             // Validar los datos de entrada
-            $request->validate([
-                // 'desks' => 'required|exists:mesa,id',
-                // 'cant_clientes' => 'required|integer|min:1',
-                // 'drinks.*.id' => 'required|exists:productos,id',
-                // 'drinks.*.cantidad' => 'integer|min:1',
-                // 'picapica.*.id' => 'required|exists:productos,id',
-                // 'picapica.*.cantidad' => 'integer|min:1',
-                // 'primero.*.id' => 'required|exists:productos,id',
-                // 'primero.*.cantidad' => 'integer|min:1',
-                // 'segundo.*.id' => 'required|exists:productos,id',
-                // 'segundo.*.cantidad' => 'integer|min:1',
-                // 'postre.*.id' => 'required|exists:productos,id',
-                // 'postre.*.cantidad' => 'integer|min:1',
-            ], [
-                'required' => 'El campo :attribute es obligatorio.',
-                'exists' => 'El :attribute seleccionado no existe en la base de datos.',
-                'integer' => 'El campo :attribute debe ser un número entero.',
-                'min' => 'El campo :attribute debe ser como mínimo :min.',
+            $validatedData = $request->validate([
+                'desks' => 'required|exists:mesa,id',
+                'cant_clientes' => 'required|integer|min:1',
+                'bebida.*.id' => 'nullable|exists:productos,id',
+                'bebida.*.cantidad' => 'nullable|integer|min:0',
+                'picapica.*.id' => 'nullable|exists:productos,id',
+                'picapica.*.cantidad' => 'nullable|integer|min:0',
+                'primero.*.id' => 'nullable|exists:productos,id',
+                'primero.*.cantidad' => 'nullable|integer|min:0',
+                'segundo.*.id' => 'nullable|exists:productos,id',
+                'segundo.*.cantidad' => 'nullable|integer|min:0',
+                'postre.*.id' => 'nullable|exists:productos,id',
+                'postre.*.cantidad' => 'nullable|integer|min:0',
             ]);
 
             // Crear una nueva comanda
             $note = Comanda::create([
-                'id_mesa' => $request->input('desks'),
+                'id_mesa' => $validatedData['desks'],
             ]);
 
             // Procesar los productos y cantidades
-            $this->saveProductos($note->id, $request->input('drinks'));
-            $this->saveProductos($note->id, $request->input('picapica'));
-            $this->saveProductos($note->id, $request->input('primero'));
-            $this->saveProductos($note->id, $request->input('segundo'));
-            $this->saveProductos($note->id, $request->input('postre'));
+            foreach (['bebida', 'picapica', 'primero', 'segundo', 'postre'] as $tipo) {
+                if (isset($validatedData[$tipo])) {
+                    $this->saveProductos($note->id, $validatedData[$tipo], $tipo);
+                    Log::info('Guardando productos: ' . $tipo, [$tipo => $validatedData[$tipo]]);
+                }
+            }
 
             // Redireccionar con un mensaje de éxito
             return redirect()->route('home')->with('success', 'Nota creada exitosamente');
         } catch (\Exception $e) {
+            Log::error('Error al crear la nota: ' . $e->getMessage());
             return back()->with('error', 'La nota no pudo ser creada: ' . $e->getMessage());
         }
     }
@@ -127,18 +126,34 @@ class NoteController extends Controller
      *
      * @param int $noteId
      * @param array $products
+     * @param string $tipo
      * @return void
      */
-    private function saveProductos($noteId, $products)
+    private function saveProductos($noteId, $products, $tipo)
     {
         foreach ($products as $product) {
-            Contiene::create([
-                'id_comanda' => $noteId,
-                'id_producto' => $product['id'],
-                'cantidad' => $product['cantidad'],
-            ]);
+            try {
+                // Verificar que el producto es del tipo correcto
+                if ($producto = Producto::find($product['id'])) {
+                    if ($producto->tipo === $tipo && $product['cantidad'] > 0) {
+                        Contiene::create([
+                            'id_comanda' => $noteId,
+                            'id_producto' => $product['id'],
+                            'cantidad' => $product['cantidad'],
+                        ]);
+                        Log::info('Producto guardado correctamente.', ['noteId' => $noteId, 'product' => $product]);
+                    } else {
+                        Log::warning('El producto no coincide con el tipo esperado o la cantidad no es válida.', ['noteId' => $noteId, 'product' => $product, 'expected' => $tipo]);
+                    }
+                } else {
+                    Log::warning('El producto no existe.', ['noteId' => $noteId, 'product' => $product]);
+                }
+            } catch (\Exception $e) {
+                Log::error('Error al guardar el producto: ' . $e->getMessage(), ['noteId' => $noteId, 'product' => $product]);
+            }
         }
     }
+
 
     /**
      * Show the form for creating a new resource.
