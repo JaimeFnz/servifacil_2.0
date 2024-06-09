@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Hashing\BcryptHasher;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -62,7 +63,6 @@ return new class extends Migration {
             [
                 'dni' => '00000001A',
                 'name' => 'Deborah',
-                'surname' => 'Nabos',
                 'email' => 'deborah@gmail.com',
                 'password' => bcrypt('deborah1234'),
                 'id_empresa' => 2,
@@ -70,10 +70,9 @@ return new class extends Migration {
             ],
             [
                 'dni' => '00000002B',
-                'name' => 'Jorge',
-                'surname' => 'Nitales',
-                'email' => 'jorge@gmail.com',
-                'password' => bcrypt('jorge1234'),
+                'name' => 'Nitales',
+                'email' => 'nitales@gmail.com',
+                'password' => bcrypt('nitales1234'),
                 'id_empresa' => 3,
                 'puesto' => 'jefe',
             ],
@@ -89,7 +88,6 @@ return new class extends Migration {
             [
                 'dni' => '00000004D',
                 'name' => 'Maria',
-                'surname' => 'Dolores del orto',
                 'email' => 'maria@gmail.com',
                 'password' => bcrypt('maria1234'),
                 'puesto' => 'camarero',
